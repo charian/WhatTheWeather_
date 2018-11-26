@@ -5,128 +5,18 @@ import { View, Text, TouchableHighlight, Image, StyleSheet, AppRegistry } from '
 import { LinearGradient } from "expo";
 import PropTypes from "prop-types";
 
-// API List
-const API_KEY = "T4pjG2TFl6rGlAhzoYeo3bbLEpkmzeiF";
-const datagokr_KEY = "aiMmkue91q4efKfTD0%2FfGF7Zv%2FIFyFZLqLVxcVrI7O9ZEgiKsA1yawel2kBvXgBvwaIAZ7ygUg%2BFJN1ex7n65w%3D%3D";
-const kakao_KEY = "d114ff2a6ca1e7124eb497fbfcb660a4"
-const token = "b8e396fd8d70334cc7860ccc70ae8ee2bbe42d07"
+import {API_KEY} from "./Keys"
+import {datagokr_KEY} from "./Keys"
+import {kakao_KEY} from "./Keys"
+import {token} from "./Keys"
 
-const weatherCases = {
-  Lightrain: {
-    colors: ["#00C6FB", "#005BEA"],
-    title: "Light Raining",
-    subtitle: "For more info look outside",
-    icon: "weather-rainy"
-    },
-  Rain: {
-    colors: ["#00C6FB", "#005BEA"],
-    title: "Raining like a MF",
-    subtitle: "For more info look outside",
-    icon: "weather-rainy"
-  },
-  Clear: {
-    colors: ["#FEF253", "#FF7300"],
-    title: "Sunny as fuck",
-    subtitle: "Go get your ass burnt",
-    icon: "weather-sunny"
-  },
-  Sunny: {
-    colors: ["#FEF253", "#FF7300"],
-    title: "Sunny as fuck",
-    subtitle: "Go get your ass burnt",
-    icon: "weather-sunny"
-  },
-  Partlysunny: {
-    colors: ["#FEF253", "#FF7300"],
-    title: "Sunny as fuck",
-    subtitle: "Go get your ass burnt",
-    icon: "weather-sunny"
-  },
-  Mostlysunny: {
-    colors: ["#FEF253", "#FF7300"],
-    title: "Sunny as fuck",
-    subtitle: "Go get your ass burnt",
-    icon: "weather-sunny"
-  },
-  Mostlyclear: {
-    colors: ["#FEF253", "#FF7300"],
-    title: "Mostly Clear",
-    subtitle: "Go get your ass burnt",
-    icon: "weather-sunny"
-  },
-  Thunderstorm: {
-    colors: ["#00ECBC", "#007ADF"],
-    title: "Thunderstorm in the house",
-    subtitle: "Actually, outside of the house",
-    icon: "weather-lightning"
-  },
-  Clouds: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Clouds",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Cloudsandsun: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Partly cloudy",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Partlycloudy: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Partly cloudy",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Mostlycloudy: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Mostly cloudy",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Cloudy: {
-    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-    title: "Clouds",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Someclouds: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Some Clouds",
-    subtitle: "I know, fucking boring",
-    icon: "weather-cloudy"
-  },
-  Snow: {
-    colors: ["#7DE2FC", "#B9B6E5"],
-    title: "Cold as balls",
-    subtitle: "Do you want to build a snowman? Fuck no.",
-    icon: "weather-snowy"
-  },
-  Drizzle: {
-    colors: ["#89F7FE", "#66A6FF"],
-    title: "Drizzle",
-    subtitle: "Is like rain, but gay 🏳️‍🌈",
-    icon: "weather-hail"
-  },
-  Haze: {
-    colors: ["#89F7FE", "#66A6FF"],
-    title: "Haze",
-    subtitle: "Don't know what that is 💩",
-    icon: "weather-hail"
-  },
-  Mist: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Mist!",
-    subtitle: "It's like you have no glasses on.",
-    icon: "weather-fog"
-  },
-  Ashower: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Mist!",
-    subtitle: "It's like you have no glasses on.",
-    icon: "weather-fog"
-  }
-};
+// API List
+// const API_KEY = "T4pjG2TFl6rGlAhzoYeo3bbLEpkmzeiF";
+// const datagokr_KEY = "aiMmkue91q4efKfTD0%2FfGF7Zv%2FIFyFZLqLVxcVrI7O9ZEgiKsA1yawel2kBvXgBvwaIAZ7ygUg%2BFJN1ex7n65w%3D%3D";
+// const kakao_KEY = "d114ff2a6ca1e7124eb497fbfcb660a4"
+// const token = "b8e396fd8d70334cc7860ccc70ae8ee2bbe42d07"
+
+
 
 export default class CustomDrawer extends Component {
 
@@ -150,7 +40,6 @@ export default class CustomDrawer extends Component {
     currentPositionPM10: null,
   };
 
-  
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
@@ -246,11 +135,126 @@ export default class CustomDrawer extends Component {
 
     const {isLoaded, error, temperature, name, countrytext, locationtext, thenyesterday, humidity, cityname, currentPositionPM10, currentPositionPM25} = this.state;
 
-    
+    const weatherCases = {
+      Lightrain: {
+        colors: ["#00C6FB", "#005BEA"],
+        title: "Light Raining",
+        subtitle: "For more info look outside",
+        icon: "weather-rainy"
+        },
+      Rain: {
+        colors: ["#00C6FB", "#005BEA"],
+        title: "Raining like a MF",
+        subtitle: "For more info look outside",
+        icon: "weather-rainy"
+      },
+      Clear: {
+        colors: ["#FEF253", "#FF7300"],
+        title: "Sunny as fuck",
+        subtitle: "Go get your ass burnt",
+        icon: "weather-sunny"
+      },
+      Sunny: {
+        colors: ["#FEF253", "#FF7300"],
+        title: "Sunny as fuck",
+        subtitle: "Go get your ass burnt",
+        icon: "weather-sunny"
+      },
+      Partlysunny: {
+        colors: ["#FEF253", "#FF7300"],
+        title: "Sunny as fuck",
+        subtitle: "Go get your ass burnt",
+        icon: "weather-sunny"
+      },
+      Mostlysunny: {
+        colors: ["#FEF253", "#FF7300"],
+        title: "Sunny as fuck",
+        subtitle: "Go get your ass burnt",
+        icon: "weather-sunny"
+      },
+      Mostlyclear: {
+        colors: ["#FEF253", "#FF7300"],
+        title: "Mostly Clear",
+        subtitle: "Go get your ass burnt",
+        icon: "weather-sunny"
+      },
+      Thunderstorm: {
+        colors: ["#00ECBC", "#007ADF"],
+        title: "Thunderstorm in the house",
+        subtitle: "Actually, outside of the house",
+        icon: "weather-lightning"
+      },
+      Clouds: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Clouds",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Cloudsandsun: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Partly cloudy",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Partlycloudy: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Partly cloudy",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Mostlycloudy: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Mostly cloudy",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Cloudy: {
+        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+        title: "Clouds",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Someclouds: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Some Clouds",
+        subtitle: "I know, fucking boring",
+        icon: "weather-cloudy"
+      },
+      Snow: {
+        colors: ["#7DE2FC", "#B9B6E5"],
+        title: "Cold as balls",
+        subtitle: "Do you want to build a snowman? Fuck no.",
+        icon: "weather-snowy"
+      },
+      Drizzle: {
+        colors: ["#89F7FE", "#66A6FF"],
+        title: "Drizzle",
+        subtitle: "Is like rain, but gay 🏳️‍🌈",
+        icon: "weather-hail"
+      },
+      Haze: {
+        colors: ["#89F7FE", "#66A6FF"],
+        title: "Haze",
+        subtitle: "Don't know what that is 💩",
+        icon: "weather-hail"
+      },
+      Mist: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Mist!",
+        subtitle: "It's like you have no glasses on.",
+        icon: "weather-fog"
+      },
+      Ashower: {
+        colors: ["#D7D2CC", "#304352"],
+        title: "Mist!",
+        subtitle: "It's like you have no glasses on.",
+        icon: "weather-fog"
+      }
+    };
 
     return (
       <LinearGradient
-        colors={['#FEF253', '#FF7300']}
+        colors={this.state.name && weatherCases[this.state.name].colors}
         style={styles.linear}
         start={[0.4, -0.4]}
         end={[-0.3, 1]}
@@ -258,9 +262,11 @@ export default class CustomDrawer extends Component {
       >
         <View style={styles.container}>
           <Router />
-          <Text>{this.state.cityname}, {this.state.name}, {weatherCases[name].colors}</Text>
+          <Text>{this.state.cityname}, {name},{this.state.name && weatherCases[this.state.name].colors} </Text>
+          <Text>{this.state.name && weatherCases[this.state.name].colors[0]}</Text>
         </View>
       </LinearGradient>
+      //{weatherCases[name].colors}
     );
   }
 }
