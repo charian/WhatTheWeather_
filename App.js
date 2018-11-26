@@ -11,6 +11,7 @@ import {kakao_KEY} from "./Keys"
 import {token} from "./Keys"
 
 
+
 export default class CustomDrawer extends Component {
 
   state = {
@@ -32,7 +33,6 @@ export default class CustomDrawer extends Component {
     currentPositionPM25: null,
     currentPositionPM10: null,
   };
-
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
@@ -127,7 +127,7 @@ export default class CustomDrawer extends Component {
   render () {
 
     const {isLoaded, error, temperature, name, countrytext, locationtext, thenyesterday, humidity, cityname, currentPositionPM10, currentPositionPM25} = this.state;
-
+    
     const weatherCases = {
       Lightrain: {
         colors: ["#00C6FB", "#005BEA"],
@@ -244,26 +244,26 @@ export default class CustomDrawer extends Component {
         icon: "weather-fog"
       }
     };
-
+    
     return (
+      
       <LinearGradient
-        colors={this.state.name && weatherCases[this.state.name].colors}
-        style={styles.linear}
+        colors={this.state.name ? weatherCases[this.state.name].colors: ["#000000", "#111111"]}
+        style={styles.container}
         start={[0.4, -0.4]}
         end={[-0.3, 1]}
         location={[0.25, 0.4, 1]}
       >
-        <View style={styles.container}>
-          <Router />
-          <Text>{this.state.cityname}, {name},{this.state.name && weatherCases[this.state.name].colors} </Text>
-          <Text>{this.state.name && weatherCases[this.state.name].colors[0]}</Text>
-        </View>
+        <Router />
       </LinearGradient>
+      
       //{weatherCases[name].colors}
     );
   }
+  
 }
 
+export const globalName = name
 
 AppRegistry.registerComponent('CustomDrawer', () => CustomDrawer);
 
@@ -271,9 +271,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,   
   },
+  routerContainer: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    marginTop: 20,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
   linear: {
     flex: 1,   
   }
 })
-
-

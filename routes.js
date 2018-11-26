@@ -5,29 +5,8 @@ import Page2 from './Page2/Page2';
 import Page3 from './Page3/Page3';
 
 import SideMenu from './SideMenu/SideMenu';
-import {Button, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {Button, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
-
-
-
-// class generateDrawerHamburger extends Component {
-//     render() {
-//         return (<View style={{
-//             height: 70,
-//             flexDirection: 'row',
-//             justifyContent: 'flex-start',
-//             alignItems: 'center',
-//             position: 'absolute', backgroundColor: 'transparent', zIndex: 100, top: 0, left: 0, right: 0
-            
-//         }}>
-//             <TouchableHighlight style={{ marginLeft: 10, marginTop: 15 }}
-//                 onPress={() => { this.props.navigation.openDrawer() }}>
-//                 <Text>Call</Text>
-//             </TouchableHighlight>
-//         </View>);
-//     }
-// }
-
 
 
 const generateDrawerHamburger = (currentNav) => {
@@ -73,7 +52,8 @@ const Page3Stack = StackNavigator({
 
 export default DrawerNavigator({
   Page1: {
-    screen: Page1Stack
+    screen: Page1Stack,
+    backgroundColor: 'transparent'
   },
   Page2: {
     screen: Page2Stack
@@ -85,7 +65,6 @@ export default DrawerNavigator({
   contentComponent: SideMenu,
   drawerWidth: 200
 });
-
 
 const styles = StyleSheet.create({
     callLeftmenu: {
