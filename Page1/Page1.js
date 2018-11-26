@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {
   Text,
@@ -6,19 +5,23 @@ import {
   StyleSheet
 } from 'react-native';
 import PropTypes from "prop-types";
-import {name} from './../App.js'
-
-
 
 class Page1 extends Component {
+  
+  componentDidMount() {
+    //console.log(CustomDrawer.state)
+  };
+
   render () {
-    return (
-      <View style={styles.container}>
-        <Text>
-          Page 1 {name}
-        </Text>
-      </View>
-    );
+
+      return (
+        <View style={styles.container}>
+          <Text>
+            Page 1
+          </Text>
+        </View>
+      );
+
   }
 }
 

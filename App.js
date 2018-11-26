@@ -10,35 +10,42 @@ import {datagokr_KEY} from "./Keys"
 import {kakao_KEY} from "./Keys"
 import {token} from "./Keys"
 
-
+// export const dataGlobal = {
+//   globalName : name
+  
+// }
 
 export default class CustomDrawer extends Component {
 
-  state = {
-    isLoaded: false,
-    error: null,
-    isModalVisible: false,
-    menuOpen: false,
-    locationKey: null,
-    temperature: null,
-    name: null,
-    countrytext: null,
-    locationtext: null,
-    thenyesterday: null,
-    humidity: null,
-    cityname: null,
-    mtx: null,
-    mty: null,
-    pmStation: null,
-    currentPositionPM25: null,
-    currentPositionPM10: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoaded: false,
+      error: null,
+      isModalVisible: false,
+      menuOpen: false,
+      locationKey: null,
+      temperature: null,
+      name: null,
+      countrytext: null,
+      locationtext: null,
+      thenyesterday: null,
+      humidity: null,
+      cityname: null,
+      mtx: null,
+      mty: null,
+      pmStation: null,
+      currentPositionPM25: null,
+      currentPositionPM10: null,
+    };
+  }
+
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
         this._getWeather(position.coords.latitude, position.coords.longitude);
-        console.log(position);
+        //console.log(position);
       },
       error => {
         this.setState({
@@ -46,6 +53,7 @@ export default class CustomDrawer extends Component {
         });
       }
     );
+      
   }
 
   _getWeather = (lat, long) => {
@@ -53,8 +61,8 @@ export default class CustomDrawer extends Component {
     fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${long}`)
       .then(response => response.json())
       .then(location => {
-        console.log('location data');
-        console.log(location);
+        //console.log('location data');
+        //console.log(location);
         this.setState({
           locationKey: location.Key,
           countrytext: location.Country.LocalizedName,
@@ -66,8 +74,8 @@ export default class CustomDrawer extends Component {
       })
       .then(response => response.json())
       .then(locationData => {
-        console.log('weather data');
-        console.log(locationData);
+        //console.log('weather data');
+        //console.log(locationData);
         this.setState({
           temperature: locationData[0].Temperature.Metric.Value,
           name: locationData[0].WeatherText.replace(/\s/gi,""), //.replace(/\-/g,'')
@@ -88,46 +96,49 @@ export default class CustomDrawer extends Component {
         return fetch(`https://dapi.kakao.com/v2/local/geo/transcoord.json?x=${long}&y=${lat}&input_coord=WGS84&output_coord=TM`,{
           headers: new Headers({'Authorization': 'KakaoAK d114ff2a6ca1e7124eb497fbfcb660a4'}),
         })
-        console.log(locationData[0].WeatherText);
+        //console.log(locationData[0].WeatherText);
       })
       .then(response => response.json())
       .then(wgsTotm => {
-        console.log(wgsTotm);
+        //console.log(wgsTotm);
         this.setState({
           mtx: wgsTotm.documents[0].x,
           mty: wgsTotm.documents[0].y
         })
-        console.log(wgsTotm.documents[0].x);
-        console.log(wgsTotm.documents[0].y);
+        //console.log(wgsTotm.documents[0].x);
+        //console.log(wgsTotm.documents[0].y);
         return fetch(`http://openapi.airkorea.or.kr/openapi/services/rest/MsrstnInfoInqireSvc/getNearbyMsrstnList?tmX=` + this.state.mtx + `&tmY=` + this.state.mty + `&pageNo=1&numOfRows=10&ServiceKey=${datagokr_KEY}&_returnType=json`)
       })
       .then(response => response.json())
       .then(airkoreadata => {
-        console.log(airkoreadata);
+        //console.log(airkoreadata);
         this.setState({
           pmStation: airkoreadata.list[0].stationName
         })
-        console.log(airkoreadata.list[0].stationName);
+        //console.log(airkoreadata.list[0].stationName);
         return fetch(`http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=` +  encodeURI(this.state.pmStation , "UTF-8") + `&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=${datagokr_KEY}&ver=1.3&_returnType=json`)
         .then(response => response.json())
         .then(airpolution => {
-          console.log(airpolution);
+          //console.log(airpolution);
           this.setState({
             currentPositionPM25:airpolution.list[0].pm25Value,
             currentPositionPM10:airpolution.list[0].pm10Value
           })
-          console.log(airpolution.list[0].pm25Value);
-          console.log(airpolution.list[0].pm10Value);
+          //console.log(airpolution.list[0].pm25Value);
+          //console.log(airpolution.list[0].pm10Value);
         })
       })
       
   };
 
+  
+
+  
 
   render () {
 
     const {isLoaded, error, temperature, name, countrytext, locationtext, thenyesterday, humidity, cityname, currentPositionPM10, currentPositionPM25} = this.state;
-    
+
     const weatherCases = {
       Lightrain: {
         colors: ["#00C6FB", "#005BEA"],
@@ -246,26 +257,34 @@ export default class CustomDrawer extends Component {
     };
     
     return (
-      
+      <View style={styles.container}>
+      <Router
+        weatherName={name}
+        temp={Math.ceil(temperature - 0)}
+        countryText={countrytext}
+        locationText={locationtext}
+        cityName={cityname}
+        thenYesterday={thenyesterday}
+        Humidity={humidity}
+        PM10={currentPositionPM10}
+        PM25={currentPositionPM25}
+        />
       <LinearGradient
         colors={this.state.name ? weatherCases[this.state.name].colors: ["#000000", "#111111"]}
-        style={styles.container}
+        
         start={[0.4, -0.4]}
         end={[-0.3, 1]}
         location={[0.25, 0.4, 1]}
       >
-        <Router />
       </LinearGradient>
       
+      </View>
       //{weatherCases[name].colors}
     );
   }
-  
 }
 
-export const globalName = name
-
-AppRegistry.registerComponent('CustomDrawer', () => CustomDrawer);
+AppRegistry.registerComponent('WhatTheWeather', () => WhatTheWeather);
 
 const styles = StyleSheet.create({
   container: {

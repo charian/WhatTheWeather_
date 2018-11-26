@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19015,
+  "expoServerPort": 19016,
   "packagerPort": 19001,
-  "packagerPid": 25195,
+  "packagerPid": 47275,
   "expoServerNgrokUrl": "https://jy-rwp.charian.whattheweather.exp.direct",
   "packagerNgrokUrl": "https://packager.jy-rwp.charian.whattheweather.exp.direct",
-  "ngrokPid": 25216
+  "ngrokPid": 47302
 }

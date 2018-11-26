@@ -53,7 +53,7 @@ const Page3Stack = StackNavigator({
 export default DrawerNavigator({
   Page1: {
     screen: Page1Stack,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   Page2: {
     screen: Page2Stack
