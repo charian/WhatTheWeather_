@@ -32,22 +32,31 @@ export class Page1 extends Component {
         icon: "weather-rainy"
       },
       Clear: {
-        colors: ["#FEF253", "#FF7300"],
+        colors: ["#80CBF9", "#EED578", "#FF4B1F"],
         title: "Sunny as fuck",
         subtitle: "Go get your ass burnt",
-        icon: "weather-sunny"
+        icon: "weather-sunny",
+        iconImg: require('./../assets/images/icon-sunny-2x.png'),
+        width: 243,
+        height: 234,
       },
       Sunny: {
-        colors: ["#FEF253", "#FF7300"],
+        colors: ["#80CBF9", "#EED578", "#FF4B1F"],
         title: "Sunny as fuck",
         subtitle: "Go get your ass burnt",
-        icon: "weather-sunny"
+        icon: "weather-sunny",
+        iconImg: require('./../assets/images/icon-sunny-2x.png'),
+        width: 243,
+        height: 234,
       },
       Partlysunny: {
-        colors: ["#FEF253", "#FF7300"],
+        colors: ["#80CBF9", "#F3D66B", "#FF4B1F"],
         title: "Sunny as fuck",
         subtitle: "Go get your ass burnt",
-        icon: "weather-sunny"
+        icon: "weather-sunny",
+        iconImg: require('./../assets/images/icon-sunny-2x.png'),
+        width: 243,
+        height: 234,
       },
       Mostlysunny: {
         colors: ["#FEF253", "#FF7300"],
@@ -170,7 +179,7 @@ export class Page1 extends Component {
    
     //console.log(weatherName);
     
-    console.log(this.state.isModalVisible1);
+    //console.log(this.state.isModalVisible1);
 
     return (
 
@@ -178,10 +187,11 @@ export class Page1 extends Component {
         //colors={this.props.value.name ? weatherCases[this.props.value.name].colors: ["#000000", "#111111"]}//{["#BEBEBE", "#7C8EB6", "#6F6F6F"]}//
         colors={weatherCases[this.props.value.name].colors}
         style={styles.linear}
-        start={[0.4, -0.4]}
-        end={[-0.3, 1]}
-        location={[0.25, 0.4, 1]}
+        start={[0.6, 0]}
+        end={[0.3, 0.9]}
+        locations={[0.0, 0.6 ,1.0]}
       >
+
         <View style={styles.upper}>
           <Image 
             source={weatherCases[this.props.value.name].iconImg}
@@ -200,7 +210,6 @@ export class Page1 extends Component {
             <TouchableOpacity onPress={this._toggleModal1 } style={styles.locationTitle}>
               <Image source={require('./../assets/images/badge-realfeel-2x.png')} style={styles.realFeelBadge} />
             </TouchableOpacity>
-
             <Modal 
             isVisible={this.state.isModalVisible1} 
             animationIn='bounceIn'
@@ -220,9 +229,13 @@ export class Page1 extends Component {
                 </TouchableOpacity>
               </View>
             </Modal>
-
-
+            <View  style={styles.tempYesterday}>
+              <Text  style={styles.tempYesterdayText}>
+                Temperature is {this.props.value.thenyesterday}º then yesterday
+              </Text>
+            </View>
           </View>
+          
           <View style={styles.lowerEtc}>
             <Text>{this.props.value.name}</Text>
           </View>
@@ -263,10 +276,21 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   lowerDgree: {
-    flex: 1,
     flexDirection: 'row',
-
     justifyContent: 'flex-end',
+    marginTop: 90,
+    marginBottom: 60
+  },
+  tempYesterday: {
+    flex: 1,
+    height: 15,
+    position: 'absolute',
+    left: 0,
+    bottom: -9
+  },
+  tempYesterdayText: {
+    color: '#fff',
+    fontFamily: "Arial Rounded MT Bold",
   },
   lowerEtc: {
     flex: 1,

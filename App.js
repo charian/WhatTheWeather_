@@ -45,7 +45,10 @@ export default class CustomDrawer extends Component {
       currentPositionPM1024: null,
       isDaytime: null,
       aqi: null,
-      PM25Moderate: null,
+      PM25currentAqi: null,
+      PM25currentAqiLevel: null,
+      PM10currentAqi: null,
+      PM10currentAqiLevel: null
     };
   
 
@@ -131,7 +134,7 @@ export default class CustomDrawer extends Component {
         return fetch(`http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=` +  encodeURI(this.state.pmStation , "UTF-8") + `&dataTerm=month&pageNo=1&numOfRows=10&ServiceKey=${datagokr_KEY}&ver=1.3&_returnType=json`)
         .then(response => response.json())
         .then(airpolution => {
-          console.log(airpolution);
+          //console.log(airpolution);
           this.setState({
             currentPositionPM25:airpolution.list[0].pm25Value,
             currentPositionPM2524:airpolution.list[0].pm25Value24,
@@ -147,45 +150,128 @@ export default class CustomDrawer extends Component {
           console.log('pm10 24h : ' +  this.state.currentPositionPM1024);
 
           if(this.state.currentPositionPM2524 < 12) {
-            //console.log('Good');
-            //console.log('AQI Level : ' + 4.166 * (this.state.currentPositionPM25 - 0) + 0);
+            this.setState({
+              PM25currentAqi: (2.10 * this.state.currentPositionPM25) - (2.10 * 0) + 0
+            });
           } else if (this.state.currentPositionPM2524 < 35.4) {
-            console.log('moderate');
             this.setState({
-              PM25Moderate: (2.10 * this.state.currentPositionPM25) - (2.10 * 12.1) + 51 
-            })
+              PM25currentAqi: (2.10 * this.state.currentPositionPM25) - (2.10 * 12.1) + 51
+            });
           } else if (this.state.currentPositionPM2524 < 55.4) {
-            // console.log('unhealthy for seisitive group');
-            // console.log('AQI Level : ' + 2.462 * (this.state.currentPositionPM25 - 35.5) + 101);
-          } else if (this.state.currentPositionPM2524 < 150.4) {
-
-            console.log('unhealthy');
-            console.log((0.516 * this.state.currentPositionPM25) - (0.516 * 55.5) + 151 ); // 최종본
             this.setState({
-              PM25Unhealthy: (0.516 * this.state.currentPositionPM25) - (0.516 * 55.5) + 151  
-            })
-            console.log(PM25Unhealthy);
-
+              PM25currentAqi: (2.462 * this.state.currentPositionPM25) - (2.462 * 35.5) + 101
+            });
+          } else if (this.state.currentPositionPM2524 < 150.4) {
+            this.setState({
+              PM25currentAqi: (0.561 * this.state.currentPositionPM25) - (0.516 * 55.5) + 151
+            });
           } else if (this.state.currentPositionPM2524 < 250.4) {
-            // console.log('very unhealthy');
-            // console.log('AQI Level : ' + 0.99 * (this.state.currentPositionPM25 - 150.5) + 151);
+            this.setState({
+              PM25currentAqi: (0.99 * this.state.currentPositionPM25) - (0.99 * 150.5) + 151
+            });
           } else if (this.state.currentPositionPM2524 < 350.4) {
-            // console.log('Hazardous');
-            // console.log('AQI Level : ' + 0.99 * (this.state.currentPositionPM25 - 250.5) + 151);
+            this.setState({
+              PM25currentAqi: (0.99 * this.state.currentPositionPM25) - (0.99 * 250.5) + 151
+            });
           } else if (this.state.currentPositionPM2524 < 500.4) {
-            // console.log('Hazardous'); 
-            // console.log('AQI Level : ' + 0.66 * (this.state.currentPositionPM25 - 350.5) + 151);
+            this.setState({
+              PM25currentAqi: (0.66 * this.state.currentPositionPM25) - (0.66 * 350.5) + 151
+            });
+          }
+          if(this.state.PM25currentAqi < 50) {
+            this.setState({
+              PM25currentAqiLevel: 'Good'
+            });
+          } else if (this.state.PM25currentAqi < 100) {
+            this.setState({
+              PM25currentAqiLevel: 'Moderate'
+            });
+          } else if (this.state.PM25currentAqi < 150) {
+            this.setState({
+              PM25currentAqiLevel: 'Unhealthy for Sensitive Groups'
+            });
+          } else if (this.state.PM25currentAqi < 200) {
+            this.setState({
+              PM25currentAqiLevel: 'Unhealthy'
+            });
+          } else if (this.state.PM25currentAqi < 300) {
+            this.setState({
+              PM25currentAqiLevel: 'Very Unhealthy'
+            });
+          } else if (this.state.PM25currentAqi < 400) {
+            this.setState({
+              PM25currentAqiLevel: 'Hazardous'
+            });
+          } else if (this.state.PM25currentAqi < 500) {
+            this.setState({
+              PM25currentAqiLevel: 'Hazardous Level 2'
+            });
           }
 
-        //   switch(type) {
-        //     case (this.state.currentPositionPM25 < 50):
-        //       return console.log("good");
-        //     case (50 < this.state.currentPositionPM25 < 100):
-        //       return console.log("moderate");
-        //     default:
-        //         return null;
-        // }
+          if(this.state.currentPositionPM1024 < 54) {
+            this.setState({
+              PM10currentAqi: (0.9259 * this.state.currentPositionPM10) - (0.9259 * 0) + 0
+            });
+          } else if (this.state.currentPositionPM1024 < 154) {
+            this.setState({
+              PM10currentAqi: (0.4949 * this.state.currentPositionPM10) - (0.4949 * 55) + 51
+            });
+          } else if (this.state.currentPositionPM1024 < 254) {
+            this.setState({
+              PM10currentAqi: (0.4949 * this.state.currentPositionPM10) - (0.4949 * 155) + 101
+            });
+          } else if (this.state.currentPositionPM1024 < 354) {
+            this.setState({
+              PM10currentAqi: (0.4949 * this.state.currentPositionPM10) - (0.4949 * 255) + 151
+            });
+          } else if (this.state.currentPositionPM1024 < 424) {
+            this.setState({
+              PM10currentAqi: (1.434 * this.state.currentPositionPM10) - (1.434 * 355) + 151
+            });
+          } else if (this.state.currentPositionPM1024 < 504) {
+            this.setState({
+              PM10currentAqi: (1.253 * this.state.currentPositionPM10) - (1.253 * 425) + 151
+            });
+          } else if (this.state.currentPositionPM1024 < 604) {
+            this.setState({
+              PM10currentAqi: (1 * this.state.currentPositionPM10) - (1 * 505) + 151
+            });
+          }
 
+
+          if(this.state.PM10currentAqi < 50) {
+            this.setState({
+              PM10currentAqiLevel: 'Good'
+            });
+          } else if (this.state.PM10currentAqi < 100) {
+            this.setState({
+              PM10currentAqiLevel: 'Moderate'
+            });
+          } else if (this.state.PM10currentAqi < 150) {
+            this.setState({
+              PM10currentAqiLevel: 'Unhealthy for Sensitive Groups'
+            });
+          } else if (this.state.PM10currentAqi < 200) {
+            this.setState({
+              PM10currentAqiLevel: 'Unhealthy'
+            });
+          } else if (this.state.PM10currentAqi < 300) {
+            this.setState({
+              PM10currentAqiLevel: 'Very Unhealthy'
+            });
+          } else if (this.state.PM10currentAqi < 400) {
+            this.setState({
+              PM10currentAqiLevel: 'Hazardous'
+            });
+          } else if (this.state.PM10currentAqi < 500) {
+            this.setState({
+              PM10currentAqiLevel: 'Hazardous Level 2'
+            });
+          }
+
+          console.log('PM 2.5 AQI : ' + this.state.PM25currentAqi + ' ' +this.state.PM25currentAqiLevel);
+          console.log('PM 10 AQI : ' + this.state.PM10currentAqi + ' ' +this.state.PM10currentAqiLevel);
+        
         })
 
 
