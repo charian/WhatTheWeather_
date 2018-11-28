@@ -8,11 +8,16 @@ import SideMenu from './SideMenu/SideMenu';
 import {Button, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
 
-
+const globalState ={
+  getComponentForState(state) {
+    console.log('getComponentForState', state);
+  }
+  
+};
 const generateDrawerHamburger = (currentNav) => {
   const onPress = () => currentNav.navigation.navigate('DrawerOpen');
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} style={styles.collLeftbtn}>
         <Image  style={styles.callLeftmenu} source={require('./assets/images/hamburger-2x.png')}/>
     </TouchableOpacity>
   );
@@ -28,6 +33,10 @@ const getStackNavOption = (current) => ({
     right: 0,
     borderBottomColor: 'transparent'
   },
+  containerStyle: {
+    backgroundColor: 'transparent',
+  },
+  
   headerLeft: generateDrawerHamburger(current)
 });
 
@@ -53,7 +62,7 @@ const Page3Stack = StackNavigator({
 export default DrawerNavigator({
   Page1: {
     screen: Page1Stack,
-    backgroundColor: 'transparent',
+    cardStyle: { backgroundColor: 'transparent'}
   },
   Page2: {
     screen: Page2Stack
@@ -63,11 +72,17 @@ export default DrawerNavigator({
   }
 }, {
   contentComponent: SideMenu,
-  drawerWidth: 200
+  drawerWidth: 200,
+  
 });
 
 const styles = StyleSheet.create({
-    callLeftmenu: {
-        width: 24, height: 20
-    }
+  collLeftbtn: {
+    position: 'absolute',
+    left: 26,
+    top: 23
+  },
+  callLeftmenu: {
+      width: 24, height: 20
+  }
 })

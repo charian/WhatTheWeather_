@@ -1,19 +1,20 @@
 export default {
   container: {
     paddingTop: 20,
-    flex: 1
+    flex: 1,
+    zIndex: 2
   },
   navItemStyle: {
     padding: 10
   },
   navSectionStyle: {
-    backgroundColor: 'lightgrey'
+    
   },
   sectionHeadingStyle: {
     paddingVertical: 10
   },
   footerContainer: {
     padding: 20,
-    backgroundColor: 'lightgrey'
+    
   }
 };
