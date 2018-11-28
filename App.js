@@ -48,7 +48,10 @@ export default class CustomDrawer extends Component {
       PM25currentAqi: null,
       PM25currentAqiLevel: null,
       PM10currentAqi: null,
-      PM10currentAqiLevel: null
+      PM10currentAqiLevel: null,
+      AQIResult: null,
+      polutionStandard: null,
+      AQILevelResult: null,
     };
   
 
@@ -141,8 +144,6 @@ export default class CustomDrawer extends Component {
             currentPositionPM10:airpolution.list[0].pm10Value,
             currentPositionPM1024:airpolution.list[0].pm10Value24,
           })
-
-
 
           console.log('pm2.5 : ' + this.state.currentPositionPM25);
           console.log('pm2.5 24h : ' + this.state.currentPositionPM2524);
@@ -272,6 +273,22 @@ export default class CustomDrawer extends Component {
           console.log('PM 2.5 AQI : ' + this.state.PM25currentAqi + ' ' +this.state.PM25currentAqiLevel);
           console.log('PM 10 AQI : ' + this.state.PM10currentAqi + ' ' +this.state.PM10currentAqiLevel);
         
+          if (this.state.PM25currentAqi > this.state.PM10currentAqi) {
+            this.setState({
+              AQIResult: this.state.PM25currentAqiLevel,
+              polutionStandard: 'PM 2.5',
+              AQILevelResult: this.state.PM25currentAqi
+            })
+            console.log(this.state.polutionStandard + ' ' + this.state.PM25currentAqi + ' ' + this.state.AQIResult);
+          } else {
+            this.setState({
+              AQIResult: this.state.PM10currentAqiLevel,
+              polutionStandard: 'PM 10',
+              AQILevelResult: this.state.PM10currentAqi
+            })
+            console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
+          }
+
         })
 
 
