@@ -2,7 +2,8 @@ export default {
   container: {
     paddingTop: 20,
     flex: 1,
-    zIndex: 2
+    zIndex: 20,
+    position: 'absolute'
   },
   navItemStyle: {
     padding: 10

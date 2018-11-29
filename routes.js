@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import Page1 from './Page1/Page1';
+import PageTemp from './PageTemp/PageTemp';
 import Page2 from './Page2/Page2';
 import Page3 from './Page3/Page3';
 
@@ -40,9 +40,9 @@ const getStackNavOption = (current) => ({
   headerLeft: generateDrawerHamburger(current)
 });
 
-const Page1Stack = StackNavigator({
-  Page1: {
-    screen: Page1,
+const PageTempStack = StackNavigator({
+  PageTemp: {
+    screen: PageTemp,
     navigationOptions: getStackNavOption,
   }
 });
@@ -60,8 +60,8 @@ const Page3Stack = StackNavigator({
 });
 
 export default DrawerNavigator({
-  Page1: {
-    screen: Page1Stack,
+  PageTemp: {
+    screen: PageTempStack,
     cardStyle: { backgroundColor: 'transparent'}
   },
   Page2: {

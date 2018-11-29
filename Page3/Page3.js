@@ -9,7 +9,7 @@ class Page3 extends Component {
     return (
       <View style={{padding: 50}}>
         <Text>
-          Page3
+          Precipitaion
         </Text>
       </View>
     );

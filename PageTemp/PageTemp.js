@@ -8,7 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
 
 
-export class Page1 extends Component {
+export class PageTemp extends Component {
 
   state = { 
     isModalVisible1: false,
@@ -247,7 +247,7 @@ export class Page1 extends Component {
 
 export default () => (
   <WeatherContext.Consumer>
-    {value => <Page1 value={value} />}
+    {value => <PageTemp value={value} />}
   </WeatherContext.Consumer>
 );
 

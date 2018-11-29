@@ -315,14 +315,17 @@ export default class CustomDrawer extends Component {
         {isLoaded ? ( 
           <View style={styles.container}>
 
-            <View style={styles.locationContainer}>
-              <TouchableOpacity onPress={this._toggleModal} style={styles.locationTitle}>
-                <Text style={styles.indexLocationText}>
-                  {this.state.cityname}
-                </Text>
-                <MaterialCommunityIcons name="menu-down" size={32} color="white" style={styles.locationCallIcon} />
-              </TouchableOpacity>
-            </View>
+            <WeatherContext.Provider value={this.state} >
+              <Router style={styles.routerContainer} />
+              <View style={styles.locationContainer}>
+                <TouchableOpacity onPress={this._toggleModal} style={styles.locationTitle}>
+                  <Text style={styles.indexLocationText}>
+                    {this.state.cityname}
+                  </Text>
+                  <MaterialCommunityIcons name="menu-down" size={32} color="white" style={styles.locationCallIcon} />
+                </TouchableOpacity>
+              </View>
+            </WeatherContext.Provider>
 
             <Modal 
             isVisible={this.state.isModalVisible} 
@@ -349,9 +352,6 @@ export default class CustomDrawer extends Component {
               </View>
             </Modal>
 
-            <WeatherContext.Provider value={this.state} >
-              <Router style={styles.routerContainer} />
-            </WeatherContext.Provider>
           </View>
         ) : (
           <View style={styles.loading}>
