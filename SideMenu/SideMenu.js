@@ -15,8 +15,9 @@ class SideMenu extends Component {
 
   render () {
     return (
+      
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView forceInset={{ top: 'always', horizontal: 'true' }} >
           <View>
             <Text style={styles.sectionHeadingStyle}>
               Section 1
@@ -35,8 +36,8 @@ class SideMenu extends Component {
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page2')}>
                 Page2
               </Text>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page3')}>
-                Page3
+              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('PageSetting')}>
+                Setting
               </Text>
             </View>
           </View>

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import PropTypes from "prop-types";
 import { LinearGradient } from "expo";
 import { WeatherContext } from "../Context";
+import SelectLocation from "../location";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Modal from "react-native-modal";
@@ -192,6 +193,9 @@ export class PageTemp extends Component {
         locations={[0.0, 0.6 ,1.0]}
       >
 
+          <SelectLocation />
+
+
         <View style={styles.upper}>
           <Image 
             source={weatherCases[this.props.value.name].iconImg}
@@ -237,7 +241,26 @@ export class PageTemp extends Component {
           </View>
           
           <View style={styles.lowerEtc}>
-            <Text>{this.props.value.name}</Text>
+            <View>
+              <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27} } />
+              <Text>Air Quility</Text>
+              <Text>Moderate</Text>
+            </View>
+            <View>
+              <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24} } />
+              <Text>Sunset</Text>
+              <Text>17:00 PM</Text>
+            </View>
+            <View>
+              <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27} } />
+              <Text>Humidity</Text>
+              <Text>60%</Text>
+            </View>
+            <View>
+              <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23} } />
+              <Text>Wind</Text>
+              <Text>2Km/s</Text>
+            </View>
           </View>
         </View>
       </LinearGradient>
@@ -262,6 +285,10 @@ const styles = StyleSheet.create({
     right: 0,
     flex: 1
   },
+  containerLocation: {
+    position: 'absolute',
+    top: 20
+  } ,
   linear: {
     flex: 1,   
   },

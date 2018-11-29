@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 
 import PageTemp from './PageTemp/PageTemp';
 import Page2 from './Page2/Page2';
-import Page3 from './Page3/Page3';
+import PageSetting from './PageSetting/PageSetting';
 
 import SideMenu from './SideMenu/SideMenu';
 import {Button, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
+
+import { WeatherContext } from "./Context";
 
 const globalState ={
   getComponentForState(state) {
@@ -14,7 +16,7 @@ const globalState ={
   }
   
 };
-const generateDrawerHamburger = (currentNav) => {
+const generateDrawerHamburger = (currentNav ) => {
   const onPress = () => currentNav.navigation.navigate('DrawerOpen');
   return (
     <TouchableOpacity onPress={onPress} style={styles.collLeftbtn}>
@@ -27,7 +29,7 @@ const getStackNavOption = (current) => ({
   headerStyle: {
     position: 'absolute', 
     backgroundColor: 'transparent', 
-    zIndex: 100, 
+    zIndex: 1, 
     top: 0, 
     left: 0, 
     right: 0,
@@ -43,6 +45,7 @@ const getStackNavOption = (current) => ({
 const PageTempStack = StackNavigator({
   PageTemp: {
     screen: PageTemp,
+    drawerType: 'back',
     navigationOptions: getStackNavOption,
   }
 });
@@ -52,9 +55,9 @@ const Page2Stack = StackNavigator({
     navigationOptions: getStackNavOption
   }
 });
-const Page3Stack = StackNavigator({
-  Page3: {
-    screen: Page3,
+const PageSettingStack = StackNavigator({
+  PageSetting: {
+    screen: PageSetting,
     navigationOptions: getStackNavOption
   }
 });
@@ -67,13 +70,15 @@ export default DrawerNavigator({
   Page2: {
     screen: Page2Stack
   },
-  Page3: {
-    screen: Page3Stack
+  PageSetting: {
+    screen: PageSettingStack
   }
 }, {
   contentComponent: SideMenu,
+  drawerType: 'slide',
+  drawerPosition: 'left',
   drawerWidth: 200,
-  
+  flipSide: 'left', 
 });
 
 const styles = StyleSheet.create({

@@ -11,13 +11,16 @@
   "dependencies": {
     "expo": "^31.0.2",
     "react": "16.5.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
-    "react-native-elements": "0.18.5",
-    "react-navigation": "^1.0.0-beta.11",
     "react-motion": "^0.4.4",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-autocomplete-input": "^3.6.0",
+    "react-native-drawer": "^2.5.1",
+    "react-native-elements": "0.18.5",
+    "react-native-gesture-handler": "^1.0.10",
     "react-native-modal": "^7.0.0",
     "react-native-off-canvas-menu": "^0.1.2",
-    "react-native-vector-icons": "^2.0.3"
+    "react-native-vector-icons": "^2.0.3",
+    "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

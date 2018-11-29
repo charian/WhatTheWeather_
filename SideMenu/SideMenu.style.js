@@ -3,7 +3,8 @@ export default {
     paddingTop: 20,
     flex: 1,
     zIndex: 20,
-    position: 'absolute'
+    position: 'absolute',
+    backgroundColor: 'red'
   },
   navItemStyle: {
     padding: 10

@@ -7,6 +7,7 @@ import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 
+import SelectLocation from "./location";
 import { WeatherContext } from "./Context";
 
 import {API_KEY} from "./Keys"
@@ -314,45 +315,13 @@ export default class CustomDrawer extends Component {
 
         {isLoaded ? ( 
           <View style={styles.container}>
-
-            <WeatherContext.Provider value={this.state} >
-              <Router style={styles.routerContainer} />
-              <View style={styles.locationContainer}>
-                <TouchableOpacity onPress={this._toggleModal} style={styles.locationTitle}>
-                  <Text style={styles.indexLocationText}>
-                    {this.state.cityname}
-                  </Text>
-                  <MaterialCommunityIcons name="menu-down" size={32} color="white" style={styles.locationCallIcon} />
-                </TouchableOpacity>
-              </View>
-            </WeatherContext.Provider>
-
-            <Modal 
-            isVisible={this.state.isModalVisible} 
-            animationIn='bounceIn'
-            easing='ease-in'
-            animationOut='fadeOut' 
-            backdropOpacity={0.3}
-            >
-              <View style={styles.modalContainer}>
-                <View>
-                  <Text>Current Location</Text>
-                </View>
-                <View>
-                  <Text>Any Added Location</Text>
-                </View>
-                <TouchableOpacity onPressOut={this._toggleModal2} style={styles.locationTitle}>
-                  <View>
-                    <Text>ADD New Location{"\n"}by Keyword</Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this._toggleModal}>
-                  <Text>Hide me!</Text>
-                </TouchableOpacity>
-              </View>
-            </Modal>
-
+            <View style={styles.containerRouter}>
+              <WeatherContext.Provider value={this.state} >
+                <Router style={styles.routerContainer} />
+              </WeatherContext.Provider>
+            </View>
           </View>
+        
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Getting the fucking weather</Text>
@@ -371,28 +340,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,   
   },
-  locationContainer: {
-    position: 'absolute',
-    top: 60,
-    left: 33,
+  containerRouter: {
     flex: 1,
-    zIndex: 1,
-    marginLeft: 15,
   },
-  locationTitle: {
-    alignItems: 'stretch',
-    marginLeft: 15,
-    flexDirection: 'row',
-  },
-  indexLocationText: {
-    fontSize: 27,
-    color: '#fff',
-    fontFamily: "Arial Rounded MT Bold",
-  },
-  routerContainer: {
-    position: 'absolute',
-    zIndex: 10,
-  },
+
   linear: {
     flex: 1,   
   },
@@ -409,13 +360,5 @@ const styles = StyleSheet.create({
     marginBottom: 150,
     color: '#fff'
   },
-  modalContainer: {
-    backgroundColor: '#fff',
-    elevation:4,
-    shadowOffset: { width: 5, height: 5 },
-    shadowColor: "black",
-    shadowOpacity: 0.5,
-    shadowRadius: 10,
-    zIndex: 99
-  },
+  
 })
