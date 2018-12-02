@@ -6,6 +6,8 @@ import { LinearGradient } from "expo";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+
 
 import SelectLocation from "./location";
 import { WeatherContext } from "./Context";
@@ -472,7 +474,7 @@ export default class WhatTheWeather extends Component {
     
 
     return (
-      <SafeAreaView style={{flex: 1, backgroundColor: 'red'}}>
+      
       <View style={{flex: 1}}>
 
 
@@ -492,13 +494,10 @@ export default class WhatTheWeather extends Component {
           end={[0.3, 0.9]}
           //locations={[0.0, 0.6 ,1.0]}
         >
-            
-              <WeatherContext.Provider value={this.state}>
-                <Router style={styles.routerContainer} />
-              </WeatherContext.Provider>
-            
-
-        </LinearGradient>
+            <WeatherContext.Provider value={this.state}>
+              <Router style={styles.routerContainer} />
+            </WeatherContext.Provider>
+          </LinearGradient>
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Getting the fucking weather</Text>
@@ -506,7 +505,6 @@ export default class WhatTheWeather extends Component {
           </View>
         )}
        </View> 
-       </SafeAreaView>
       //{weatherCases[name].colors}
     );
   }

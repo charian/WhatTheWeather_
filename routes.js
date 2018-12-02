@@ -7,6 +7,7 @@ import PageSetting from './PageSetting/PageSetting';
 import SideMenu from './SideMenu/SideMenu';
 import {Button, Image, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import {DrawerNavigator, StackNavigator} from 'react-navigation';
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 import { WeatherContext } from "./Context";
 
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   collLeftbtn: {
     position: 'absolute',
     left: 26,
-    top: 90
+    top: 120
   },
   callLeftmenu: {
       width: 24, height: 20

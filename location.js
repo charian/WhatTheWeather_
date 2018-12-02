@@ -5,6 +5,7 @@ import { LinearGradient } from "expo";
 import { WeatherContext } from "./Context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Modal from "react-native-modal";
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 export class SelectLocation extends Component {
 
@@ -65,8 +66,12 @@ export default () => (
 const styles = StyleSheet.create({
    locationContainer: {
     position: 'absolute',
-    top: 37,
-    left: 60,
+      ...ifIphoneX({
+        paddingTop: 60 //iphone x style
+    }, {
+        paddingTop: 34 // default style
+    }),
+    left: 50,
     flex: 1,
     zIndex: 100,
   },
