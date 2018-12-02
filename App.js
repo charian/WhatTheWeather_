@@ -20,16 +20,22 @@ import {token} from "./Keys"
 // }
 const weatherCases = {
   Lightrain: {
-    colors: ["#00C6FB", "#005BEA"],
-    title: "Light Raining",
-    subtitle: "For more info look outside",
-    icon: "weather-rainy"
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
     },
   Rain: {
-    colors: ["#00C6FB", "#005BEA"],
-    title: "Raining like a MF",
-    subtitle: "For more info look outside",
-    icon: "weather-rainy"
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
   },
   Clear: {
     colors: ["#80CBF9", "#EED578", "#FF4B1F"],
@@ -201,7 +207,9 @@ export default class WhatTheWeather extends Component {
       AQIResult: null,
       polutionStandard: null,
       AQILevelResult: null,
-      gradientColors: null
+      gradientColors: null,
+      weatherImageWidth: null,
+      weatherImageHeight: null
     };
   
 
@@ -443,7 +451,9 @@ export default class WhatTheWeather extends Component {
 
           this.setState ({
             gradientColors: this.state.name && weatherCases[this.state.name].colors,
-            weatherImage: this.state.name && weatherCases[this.state.name].iconImg
+            weatherImage: this.state.name && weatherCases[this.state.name].iconImg,
+            weatherImageWidth: this.state.name && weatherCases[this.state.name].width,
+            weatherImageHeight: this.state.name && weatherCases[this.state.name].height
           })
           console.log(this.state.name);
           console.log(this.state.gradientColors[0]);

@@ -64,8 +64,8 @@ export class PageTemp extends Component {
             source={this.props.value.weatherImage}
             
             style={{
-              //width: weatherCases[this.props.value.name].width, 
-              //height: weatherCases[this.props.value.name].height,
+              width: this.props.value.weatherImageWidth, 
+              height: this.props.value.weatherImageHeight,
               alignSelf: 'center'
             }}
           />
