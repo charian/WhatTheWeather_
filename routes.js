@@ -30,7 +30,7 @@ const getStackNavOption = (current) => ({
     position: 'absolute', 
     backgroundColor: 'transparent', 
     zIndex: 1, 
-    top: 0, 
+    top: -100, 
     left: 0, 
     right: 0,
     borderBottomColor: 'transparent'
@@ -65,7 +65,6 @@ const PageSettingStack = StackNavigator({
 export default DrawerNavigator({
   PageTemp: {
     screen: PageTempStack,
-    cardStyle: { backgroundColor: 'transparent'}
   },
   Page2: {
     screen: Page2Stack
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   collLeftbtn: {
     position: 'absolute',
     left: 26,
-    top: 23
+    top: 123
   },
   callLeftmenu: {
       width: 24, height: 20

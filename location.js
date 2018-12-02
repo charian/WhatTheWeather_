@@ -24,13 +24,13 @@ export class SelectLocation extends Component {
             <MaterialCommunityIcons name="menu-down" size={32} color="white" style={styles.locationCallIcon} />
           </TouchableOpacity>
 
-<Modal 
-        isVisible={this.state.isModalVisible} 
-        animationIn='bounceIn'
-        easing='ease-in'
-        animationOut='fadeOut' 
-        backdropOpacity={0.3}
-        >
+          <Modal 
+          isVisible={this.state.isModalVisible} 
+          animationIn='bounceIn'
+          easing='ease-in'
+          animationOut='fadeOut' 
+          backdropOpacity={0.3}
+          >
           <View style={styles.modalContainer}>
             <View>
               <Text>Current Location</Text>
@@ -65,8 +65,8 @@ export default () => (
 const styles = StyleSheet.create({
    locationContainer: {
     position: 'absolute',
-    top: 62,
-    left: 50,
+    top: 37,
+    left: 60,
     flex: 1,
     zIndex: 100,
   },

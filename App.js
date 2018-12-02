@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 
 import SelectLocation from "./location";
 import { WeatherContext } from "./Context";
-
 import {API_KEY} from "./Keys"
 import {datagokr_KEY} from "./Keys"
 import {kakao_KEY} from "./Keys"
@@ -19,8 +18,157 @@ import {token} from "./Keys"
 //   globalName : name
   
 // }
+const weatherCases = {
+  Lightrain: {
+    colors: ["#00C6FB", "#005BEA"],
+    title: "Light Raining",
+    subtitle: "For more info look outside",
+    icon: "weather-rainy"
+    },
+  Rain: {
+    colors: ["#00C6FB", "#005BEA"],
+    title: "Raining like a MF",
+    subtitle: "For more info look outside",
+    icon: "weather-rainy"
+  },
+  Clear: {
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
+  },
+  Sunny: {
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
+  },
+  Partlysunny: {
+    colors: ["#80CBF9", "#F3D66B", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
+  },
+  Mostlysunny: {
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
+  },
+  Mostlyclear: {
+    colors: ["#80CBF9", "#EED578", "#FF4B1F"],
+    title: "Sunny as fuck",
+    subtitle: "Go get your ass burnt",
+    icon: "weather-sunny",
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+    width: 243,
+    height: 234,
+  },
+  Thunderstorm: {
+    colors: ["#00ECBC", "#007ADF"],
+    title: "Thunderstorm in the house",
+    subtitle: "Actually, outside of the house",
+    icon: "weather-lightning"
+  },
+  Clouds: {
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Clouds",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
+  },
+  Cloudsandsun: {
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Partly cloudy",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
+  },
+  Partlycloudy: {
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Partly cloudy",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
+  },
+  Mostlycloudy: {
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Mostly cloudy",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
+  },
+  Cloudy: {
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Clouds",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: "require('./../assets/images/icon-cloud-2x.png')",
+    width: 244,
+    height: 157,
+  },
+  Someclouds: {
+    colors: '["#BEBEBE", "#7C8EB6", "#6F6F6F"]',
+    title: "Some Clouds",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
+  },
+  Snow: {
+    colors: ["#7DE2FC", "#B9B6E5"],
+    title: "Cold as balls",
+    subtitle: "Do you want to build a snowman? Fuck no.",
+    icon: "weather-snowy"
+  },
+  Drizzle: {
+    colors: ["#89F7FE", "#66A6FF"],
+    title: "Drizzle",
+    subtitle: "Is like rain, but gay 🏳️‍🌈",
+    icon: "weather-hail"
+  },
+  Haze: {
+    colors: ["#89F7FE", "#66A6FF"],
+    title: "Haze",
+    subtitle: "Don't know what that is 💩",
+    icon: "weather-hail"
+  },
+  Mist: {
+    colors: ["#D7D2CC", "#304352"],
+    title: "Mist!",
+    subtitle: "It's like you have no glasses on.",
+    icon: "weather-fog"
+  },
+  Ashower: {
+    colors: ["#D7D2CC", "#304352"],
+    title: "Mist!",
+    subtitle: "It's like you have no glasses on.",
+    icon: "weather-fog"
+  }
+};
 
-export default class CustomDrawer extends Component {
+export default class WhatTheWeather extends Component {
 
   state = {
       isLoaded: false,
@@ -53,6 +201,7 @@ export default class CustomDrawer extends Component {
       AQIResult: null,
       polutionStandard: null,
       AQILevelResult: null,
+      gradientColors: null
     };
   
 
@@ -289,24 +438,32 @@ export default class CustomDrawer extends Component {
             })
             console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
           }
+          console.log(this.state.name);
+          console.log(this.state.cityname);
 
+          this.setState ({
+            gradientColors: this.state.name && weatherCases[this.state.name].colors,
+            weatherImage: this.state.name && weatherCases[this.state.name].iconImg
+          })
+          console.log(this.state.name);
+          console.log(this.state.gradientColors[0]);
+          console.log(this.state.weatherImage);
         })
-
-
       })
-      
   };
-
-
-  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
   
+  _toggleModal = () => this.setState({ isModalVisible: !this.state.isModalVisible });
+
 
   render () {
 
     const { isLoaded, error,isDaytime, temperature, realFeel, name, countrytext, locationtext, thenyesterday, humidity, cityname, currentPositionPM10, currentPositionPM25} = this.state;
     
+    
+
     return (
-      <View style={styles.container}>
+      <View style={{flex: 1}}>
+
 
         <StatusBar
           backgroundColor="blue"
@@ -314,21 +471,31 @@ export default class CustomDrawer extends Component {
         />
 
         {isLoaded ? ( 
-          <View style={styles.container}>
-            <View style={styles.containerRouter}>
-              <WeatherContext.Provider value={this.state} >
+          <LinearGradient
+          //colors={weatherCases[this.state.name].colors}
+          colors={this.state.name ? weatherCases[this.state.name].colors: ["#000000", "#111111"]}
+          //colors={'["' + this.state.gradientColors[0] + '","' + this.state.gradientColors[1] + '","' + this.state.gradientColors[2] + '"]'}
+          //colors={["#000000", "#111111"]}
+          style={{flex: 1}}
+          start={[0.6, 0]}
+          end={[0.3, 0.9]}
+          //locations={[0.0, 0.6 ,1.0]}
+        >
+            
+              <WeatherContext.Provider value={this.state}>
                 <Router style={styles.routerContainer} />
               </WeatherContext.Provider>
-            </View>
-          </View>
-        
+            
+
+        </LinearGradient>
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Getting the fucking weather</Text>
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
           </View>
         )}
-      </View>
+       </View> 
+      
       //{weatherCases[name].colors}
     );
   }
@@ -349,7 +516,6 @@ const styles = StyleSheet.create({
   },
   loading: {
     flex: 1,
-    backgroundColor: '#181740',
     justifyContent: "flex-end",
     paddingLeft: 20,
     paddingRight: 20,

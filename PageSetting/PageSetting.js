@@ -66,7 +66,7 @@ class PageSetting extends Component {
           data={films.length === 1 && comp(query, films[0].title) ? [] : films}
           defaultValue={query}
           onChangeText={text => this.setState({ query: text })}
-          placeholder="Enter Star Wars film title"
+          placeholder="Enter City Keywords"
           renderItem={({ title, release_date }) => (
             <TouchableOpacity onPress={() => this.setState({ query: title })}>
               <Text style={styles.itemText}>

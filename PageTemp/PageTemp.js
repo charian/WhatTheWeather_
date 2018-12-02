@@ -19,149 +19,7 @@ export class PageTemp extends Component {
 
   render() {
     
-    const weatherCases = {
-      Lightrain: {
-        colors: ["#00C6FB", "#005BEA"],
-        title: "Light Raining",
-        subtitle: "For more info look outside",
-        icon: "weather-rainy"
-        },
-      Rain: {
-        colors: ["#00C6FB", "#005BEA"],
-        title: "Raining like a MF",
-        subtitle: "For more info look outside",
-        icon: "weather-rainy"
-      },
-      Clear: {
-        colors: ["#80CBF9", "#EED578", "#FF4B1F"],
-        title: "Sunny as fuck",
-        subtitle: "Go get your ass burnt",
-        icon: "weather-sunny",
-        iconImg: require('./../assets/images/icon-sunny-2x.png'),
-        width: 243,
-        height: 234,
-      },
-      Sunny: {
-        colors: ["#80CBF9", "#EED578", "#FF4B1F"],
-        title: "Sunny as fuck",
-        subtitle: "Go get your ass burnt",
-        icon: "weather-sunny",
-        iconImg: require('./../assets/images/icon-sunny-2x.png'),
-        width: 243,
-        height: 234,
-      },
-      Partlysunny: {
-        colors: ["#80CBF9", "#F3D66B", "#FF4B1F"],
-        title: "Sunny as fuck",
-        subtitle: "Go get your ass burnt",
-        icon: "weather-sunny",
-        iconImg: require('./../assets/images/icon-sunny-2x.png'),
-        width: 243,
-        height: 234,
-      },
-      Mostlysunny: {
-        colors: ["#FEF253", "#FF7300"],
-        title: "Sunny as fuck",
-        subtitle: "Go get your ass burnt",
-        icon: "weather-sunny"
-      },
-      Mostlyclear: {
-        colors: ["#FEF253", "#FF7300"],
-        title: "Mostly Clear",
-        subtitle: "Go get your ass burnt",
-        icon: "weather-sunny"
-      },
-      Thunderstorm: {
-        colors: ["#00ECBC", "#007ADF"],
-        title: "Thunderstorm in the house",
-        subtitle: "Actually, outside of the house",
-        icon: "weather-lightning"
-      },
-      Clouds: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Clouds",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Cloudsandsun: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Partly cloudy",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Partlycloudy: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Partly cloudy",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Mostlycloudy: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Mostly cloudy",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Cloudy: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Clouds",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Someclouds: {
-        colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
-        title: "Some Clouds",
-        subtitle: "I know, fucking boring",
-        icon: "weather-cloudy",
-        iconImg: require('./../assets/images/icon-cloud-2x.png'),
-        width: 244,
-        height: 157,
-      },
-      Snow: {
-        colors: ["#7DE2FC", "#B9B6E5"],
-        title: "Cold as balls",
-        subtitle: "Do you want to build a snowman? Fuck no.",
-        icon: "weather-snowy"
-      },
-      Drizzle: {
-        colors: ["#89F7FE", "#66A6FF"],
-        title: "Drizzle",
-        subtitle: "Is like rain, but gay 🏳️‍🌈",
-        icon: "weather-hail"
-      },
-      Haze: {
-        colors: ["#89F7FE", "#66A6FF"],
-        title: "Haze",
-        subtitle: "Don't know what that is 💩",
-        icon: "weather-hail"
-      },
-      Mist: {
-        colors: ["#D7D2CC", "#304352"],
-        title: "Mist!",
-        subtitle: "It's like you have no glasses on.",
-        icon: "weather-fog"
-      },
-      Ashower: {
-        colors: ["#D7D2CC", "#304352"],
-        title: "Mist!",
-        subtitle: "It's like you have no glasses on.",
-        icon: "weather-fog"
-      }
-    };
+    console.log(this.props.value.weatherImage);
 
     // const images = {
     //   motlyCloudy: require('./../assets/images/icon-cloud-2x.png'),
@@ -182,26 +40,33 @@ export class PageTemp extends Component {
     
     //console.log(this.state.isModalVisible1);
 
+
+  //   <LinearGradient
+  //   colors={weatherCases[this.props.value.name].colors}
+  //   style={styles.linear}
+  //   start={[0.6, 0]}
+  //   end={[0.3, 0.9]}
+  //   locations={[0.0, 0.6 ,1.0]}
+  // >
+
+      
+
+
+
+
     return (
 
-      <LinearGradient
-        //colors={this.props.value.name ? weatherCases[this.props.value.name].colors: ["#000000", "#111111"]}//{["#BEBEBE", "#7C8EB6", "#6F6F6F"]}//
-        colors={weatherCases[this.props.value.name].colors}
-        style={styles.linear}
-        start={[0.6, 0]}
-        end={[0.3, 0.9]}
-        locations={[0.0, 0.6 ,1.0]}
-      >
 
-          <SelectLocation />
-
-
+      <View style={{flex: 1, backgroundColor: 'transparent'}}>
+        <SelectLocation />
         <View style={styles.upper}>
-          <Image 
-            source={weatherCases[this.props.value.name].iconImg}
+        <Image 
+            source={this.props.value.weatherImage}
+            
             style={{
-              width: weatherCases[this.props.value.name].width, 
-              height: weatherCases[this.props.value.name].height
+              //width: weatherCases[this.props.value.name].width, 
+              //height: weatherCases[this.props.value.name].height,
+              alignSelf: 'center'
             }}
           />
         </View>
@@ -241,29 +106,31 @@ export class PageTemp extends Component {
           </View>
           
           <View style={styles.lowerEtc}>
-            <View>
-              <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27} } />
-              <Text>Air Quility</Text>
-              <Text>Moderate</Text>
+            <View style={styles.lowerEtcWidget } style={{flex: 1} }>
+              <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27, alignSelf: 'center'} } />
+              <Text style={styles.lowerEtcTitle}>Air Quility</Text>
+              <Text style={styles.lowerEtcValue} numberOfLines={1}>{this.props.value.AQIResult}</Text>
             </View>
-            <View>
-              <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24} } />
-              <Text>Sunset</Text>
-              <Text>17:00 PM</Text>
+            <View style={styles.lowerEtcWidget} style={{flex: 1} }>
+              <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24, alignSelf: 'center'} } />
+              <Text style={styles.lowerEtcTitle}>Sunset</Text>
+              <Text style={styles.lowerEtcValue}>17:00 PM</Text>
             </View>
-            <View>
-              <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27} } />
-              <Text>Humidity</Text>
-              <Text>60%</Text>
+            <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+              <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27, alignSelf: 'center'} } />
+              <Text style={styles.lowerEtcTitle}>Humidity</Text>
+              <Text style={styles.lowerEtcValue}>60%</Text>
             </View>
-            <View>
-              <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23} } />
-              <Text>Wind</Text>
-              <Text>2Km/s</Text>
+            <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+              <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23, alignSelf: 'center'} } />
+              <Text style={styles.lowerEtcTitle}>Wind</Text>
+              <Text style={styles.lowerEtcValue}>2Km/s</Text>
             </View>
           </View>
         </View>
-      </LinearGradient>
+      </View>
+
+
     );
   }
 }
@@ -294,19 +161,17 @@ const styles = StyleSheet.create({
   },
   upper: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    alignSelf: 'center'
   },
   lower: {
     flex: 1,
     paddingLeft: 25,
-    alignItems: "flex-start",
   },
   lowerDgree: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 90,
-    marginBottom: 60
+    flex: 1,  justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'flex-end'
+    //alignSelf: 'flex-start',
+    //justifyContent: 'flex-end'
   },
   tempYesterday: {
     flex: 1,
@@ -319,33 +184,51 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
   },
+
   lowerEtc: {
-    flex: 1,
-    flexDirection: 'row',
+    flex: 1, flexDirection: 'row', alignItems: 'center'
+    
+  },
+  lowerEtcWidget: {
+    alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+
+  lowerEtcTitle: {
+    fontSize: 12,
+    color: '#fff',
+    fontFamily: "Arial Rounded MT Bold",
+    marginTop: 10,
+  },
+  lowerEtcValue: {
+    fontSize: 15,
+    color: '#fff',
+    fontFamily: "Arial Rounded MT Bold",
+    marginTop: 4,
   },
   currentTemp: {
     fontSize: 80,
     color: '#fff',
-    fontFamily: "Arial Rounded MT Bold",
+    fontFamily: "Arial Rounded MT Bold"
   },
   currentReal: {
     fontSize: 45,
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
-    marginLeft: 8,
-    marginTop: 30,
+    // marginLeft: 8,
+    // marginBottom: 10,
   },
   currentTempDeg: {
     fontSize: 50,
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
+    
   },
   currentRealDeg: {
     fontSize: 30,
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
-    marginTop: 30,
+    // marginTop: 30,
   },
   realFeelBadge: {
     width: 61,
