@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import PropTypes from "prop-types";
 import { LinearGradient } from "expo";
 import { WeatherContext } from "./Context";
@@ -24,7 +24,7 @@ export class SelectLocation extends Component {
             <MaterialCommunityIcons name="menu-down" size={32} color="white" style={styles.locationCallIcon} />
           </TouchableOpacity>
 
-          <Modal 
+        <Modal 
           isVisible={this.state.isModalVisible} 
           animationIn='bounceIn'
           easing='ease-in'
@@ -48,8 +48,8 @@ export class SelectLocation extends Component {
             </TouchableOpacity>
           </View>
         </Modal>
-
         </View>
+        
         
 
     );

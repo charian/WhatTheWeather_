@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   collLeftbtn: {
     position: 'absolute',
     left: 26,
-    top: 123
+    top: 90
   },
   callLeftmenu: {
       width: 24, height: 20

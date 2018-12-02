@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import Router from './routes';
-import { View, Text, TouchableOpacity, Image, StyleSheet, AppRegistry, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, AppRegistry, StatusBar, SafeAreaView } from 'react-native';
 import { LinearGradient } from "expo";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -450,13 +450,13 @@ export default class WhatTheWeather extends Component {
           console.log(this.state.cityname);
 
           this.setState ({
-            gradientColors: this.state.name && weatherCases[this.state.name].colors,
+            //gradientColors: this.state.name && weatherCases[this.state.name].colors,
             weatherImage: this.state.name && weatherCases[this.state.name].iconImg,
             weatherImageWidth: this.state.name && weatherCases[this.state.name].width,
             weatherImageHeight: this.state.name && weatherCases[this.state.name].height
           })
           console.log(this.state.name);
-          console.log(this.state.gradientColors[0]);
+          //console.log(this.state.gradientColors[0]);
           console.log(this.state.weatherImage);
         })
       })
@@ -472,6 +472,7 @@ export default class WhatTheWeather extends Component {
     
 
     return (
+      <SafeAreaView style={{flex: 1, backgroundColor: 'red'}}>
       <View style={{flex: 1}}>
 
 
@@ -505,7 +506,7 @@ export default class WhatTheWeather extends Component {
           </View>
         )}
        </View> 
-      
+       </SafeAreaView>
       //{weatherCases[name].colors}
     );
   }

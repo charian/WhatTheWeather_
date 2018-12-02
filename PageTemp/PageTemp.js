@@ -58,76 +58,77 @@ export class PageTemp extends Component {
 
 
       <View style={{flex: 1, backgroundColor: 'transparent'}}>
-        <SelectLocation />
-        <View style={styles.upper}>
-        <Image 
-            source={this.props.value.weatherImage}
-            
-            style={{
-              width: this.props.value.weatherImageWidth, 
-              height: this.props.value.weatherImageHeight,
-              alignSelf: 'center'
-            }}
-          />
-        </View>
-        <View style={styles.lower}>
-          <View style={styles.lowerDgree}>
-            <Text style={styles.currentTemp}>{this.props.value.temperature}</Text>
-            <Text style={styles.currentTempDeg}>º</Text>
-            <Text style={styles.currentReal}>/ {this.props.value.realFeel}</Text>
-            <Text style={styles.currentRealDeg}>º</Text>
-            <TouchableOpacity onPress={this._toggleModal1 } style={styles.locationTitle}>
-              <Image source={require('./../assets/images/badge-realfeel-2x.png')} style={styles.realFeelBadge} />
-            </TouchableOpacity>
-            <Modal 
-            isVisible={this.state.isModalVisible1} 
-            animationIn='bounceIn'
-            easing='ease-in'
-            animationOut='fadeOut' 
-            backdropOpacity={0.3}
-            >
-              <View style={styles.modalContainer}>
-                <View>
-                  <Text>Current Location</Text>
+
+          <SelectLocation />
+          <View style={styles.upper}>
+          <Image 
+              source={this.props.value.weatherImage}
+              style={{
+                width: this.props.value.weatherImageWidth, 
+                height: this.props.value.weatherImageHeight,
+                alignSelf: 'center'
+              }}
+            />
+          </View>
+          <View style={styles.lower}>
+            <View style={styles.lowerDgree}>
+              <Text style={styles.currentTemp}>{this.props.value.temperature}</Text>
+              <Text style={styles.currentTempDeg}>º</Text>
+              <Text style={styles.currentReal}>/ {this.props.value.realFeel}</Text>
+              <Text style={styles.currentRealDeg}>º</Text>
+              <TouchableOpacity onPress={this._toggleModal1 } style={styles.locationTitle}>
+                <Image source={require('./../assets/images/badge-realfeel-2x.png')} style={styles.realFeelBadge} />
+              </TouchableOpacity>
+              <Modal 
+              isVisible={this.state.isModalVisible1} 
+              animationIn='bounceIn'
+              easing='ease-in'
+              animationOut='fadeOut' 
+              backdropOpacity={0.3}
+              >
+                <View style={styles.modalContainer}>
+                  <View>
+                    <Text>Current Location</Text>
+                  </View>
+                  <View>
+                    <Text>Any Added Location</Text>
+                  </View>
+                  <TouchableOpacity onPress={this._toggleModal1}>
+                    <Text>Hide me!</Text>
+                  </TouchableOpacity>
                 </View>
-                <View>
-                  <Text>Any Added Location</Text>
-                </View>
-                <TouchableOpacity onPress={this._toggleModal1}>
-                  <Text>Hide me!</Text>
-                </TouchableOpacity>
+              </Modal>
+              <View  style={styles.tempYesterday}>
+                <Text  style={styles.tempYesterdayText}>
+                  {this.props.value.thenyesterday}º then yesterday
+                </Text>
               </View>
-            </Modal>
-            <View  style={styles.tempYesterday}>
-              <Text  style={styles.tempYesterdayText}>
-                Temperature is {this.props.value.thenyesterday}º then yesterday
-              </Text>
+            </View>
+            
+            <View style={styles.lowerEtc}>
+              <View style={styles.lowerEtcWidget } style={{flex: 1} }>
+                <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27,} } />
+                <Text style={styles.lowerEtcTitle}>Air Quility</Text>
+                <Text style={styles.lowerEtcValue} numberOfLines={1}>{this.props.value.AQIResult}</Text>
+              </View>
+              <View style={styles.lowerEtcWidget} style={{flex: 1} }>
+                <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24} } />
+                <Text style={styles.lowerEtcTitle}>Sunset</Text>
+                <Text style={styles.lowerEtcValue}>17:00 PM</Text>
+              </View>
+              <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+                <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27} } />
+                <Text style={styles.lowerEtcTitle}>Humidity</Text>
+                <Text style={styles.lowerEtcValue}>60%</Text>
+              </View>
+              <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+                <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23} } />
+                <Text style={styles.lowerEtcTitle}>Wind</Text>
+                <Text style={styles.lowerEtcValue}>2Km/s</Text>
+              </View>
             </View>
           </View>
-          
-          <View style={styles.lowerEtc}>
-            <View style={styles.lowerEtcWidget } style={{flex: 1} }>
-              <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27, alignSelf: 'center'} } />
-              <Text style={styles.lowerEtcTitle}>Air Quility</Text>
-              <Text style={styles.lowerEtcValue} numberOfLines={1}>{this.props.value.AQIResult}</Text>
-            </View>
-            <View style={styles.lowerEtcWidget} style={{flex: 1} }>
-              <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24, alignSelf: 'center'} } />
-              <Text style={styles.lowerEtcTitle}>Sunset</Text>
-              <Text style={styles.lowerEtcValue}>17:00 PM</Text>
-            </View>
-            <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
-              <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27, alignSelf: 'center'} } />
-              <Text style={styles.lowerEtcTitle}>Humidity</Text>
-              <Text style={styles.lowerEtcValue}>60%</Text>
-            </View>
-            <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
-              <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23, alignSelf: 'center'} } />
-              <Text style={styles.lowerEtcTitle}>Wind</Text>
-              <Text style={styles.lowerEtcValue}>2Km/s</Text>
-            </View>
-          </View>
-        </View>
+
       </View>
 
 
@@ -152,10 +153,6 @@ const styles = StyleSheet.create({
     right: 0,
     flex: 1
   },
-  containerLocation: {
-    position: 'absolute',
-    top: 20
-  } ,
   linear: {
     flex: 1,   
   },
@@ -216,24 +213,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
     // marginLeft: 8,
-    // marginBottom: 10,
+    marginBottom: 8,
   },
   currentTempDeg: {
     fontSize: 50,
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
+    marginBottom: 40,
+    marginLeft: -5
     
   },
   currentRealDeg: {
     fontSize: 30,
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
-    // marginTop: 30,
+    marginBottom: 26,
   },
   realFeelBadge: {
     width: 61,
     height: 19,
-    marginTop: 55,
+    marginBottom: 16,
     marginLeft: 8
   },
   modalContainer: {
