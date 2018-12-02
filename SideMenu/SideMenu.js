@@ -19,20 +19,10 @@ class SideMenu extends Component {
       <View style={styles.container}>
         <ScrollView forceInset={{ top: 'always', horizontal: 'true' }} >
           <View>
-            <Text style={styles.sectionHeadingStyle}>
-              Section 1
-            </Text>
             <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('PageTemp')}>
                 Temperature
               </Text>
-            </View>
-          </View>
-          <View>
-            <Text style={styles.sectionHeadingStyle}>
-              Section 2
-            </Text>
-            <View style={styles.navSectionStyle}>
               <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Page2')}>
                 Page2
               </Text>

@@ -19,7 +19,8 @@ export class PageTemp extends Component {
 
   render() {
     
-    console.log(this.props.value.weatherImage);
+    
+    //console.log(this.props.value.name);
 
     // const images = {
     //   motlyCloudy: require('./../assets/images/icon-cloud-2x.png'),
@@ -52,7 +53,7 @@ export class PageTemp extends Component {
       
 
 
-
+  //console.log('from temp page : ' + this.props.value.weatherImage);
 
     return (
 
@@ -100,7 +101,7 @@ export class PageTemp extends Component {
               </Modal>
               <View  style={styles.tempYesterday}>
                 <Text  style={styles.tempYesterdayText}>
-                  {this.props.value.thenyesterday}º then yesterday
+                  {this.props.value.thenyesterday}º {this.props.value.thenYesterdayCompare}
                 </Text>
               </View>
             </View>

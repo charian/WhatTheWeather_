@@ -131,12 +131,12 @@ const weatherCases = {
     title: "Clouds",
     subtitle: "I know, fucking boring",
     icon: "weather-cloudy",
-    iconImg: "require('./../assets/images/icon-cloud-2x.png')",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
     width: 244,
     height: 157,
   },
   Someclouds: {
-    colors: '["#BEBEBE", "#7C8EB6", "#6F6F6F"]',
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
     title: "Some Clouds",
     subtitle: "I know, fucking boring",
     icon: "weather-cloudy",
@@ -211,7 +211,8 @@ export default class WhatTheWeather extends Component {
       AQILevelResult: null,
       gradientColors: null,
       weatherImageWidth: null,
-      weatherImageHeight: null
+      weatherImageHeight: null,
+      thenYesterdayCompare: null,
     };
   
 
@@ -259,6 +260,10 @@ export default class WhatTheWeather extends Component {
           humidity: locationData[0].RelativeHumidity,
           isDaytime: locationData[0].IsDayTime,
           realFeel: Math.round(locationData[0].RealFeelTemperature.Metric.Value),
+
+          weatherImage: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].iconImg,
+          weatherImageWidth: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].width,
+          weatherImageHeight: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].height,
           isLoaded: true
         })
 
@@ -448,18 +453,29 @@ export default class WhatTheWeather extends Component {
             })
             console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
           }
-          console.log(this.state.name);
-          console.log(this.state.cityname);
 
-          this.setState ({
-            //gradientColors: this.state.name && weatherCases[this.state.name].colors,
-            weatherImage: this.state.name && weatherCases[this.state.name].iconImg,
-            weatherImageWidth: this.state.name && weatherCases[this.state.name].width,
-            weatherImageHeight: this.state.name && weatherCases[this.state.name].height
-          })
-          console.log(this.state.name);
+          if (this.state.thenyesterday > 0) {
+            this.setState({
+              thenYesterdayCompare: 'higher then yesterday'
+            })
+          } else {
+            this.setState({
+              thenYesterdayCompare: 'lower then yesterday'
+            })
+          }
+          console.log(this.state.isDaytime);
+          //console.log(this.state.name);
+          //console.log(this.state.cityname);
+
+          // this.setState ({
+          //   //gradientColors: this.state.name && weatherCases[this.state.name].colors,
+          //   weatherImage: this.state.name && weatherCases[this.state.name].iconImg,
+          //   weatherImageWidth: this.state.name && weatherCases[this.state.name].width,
+          //   weatherImageHeight: this.state.name && weatherCases[this.state.name].height
+          // })
+          //console.log(this.state.name);
           //console.log(this.state.gradientColors[0]);
-          console.log(this.state.weatherImage);
+          //console.log(this.state.weatherImage);
         })
       })
   };
