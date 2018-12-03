@@ -289,7 +289,7 @@ export default class WhatTheWeather extends Component {
       .then(response => response.json())
       .then(locationData => {
         //console.log('weather data');
-        console.log(locationData);
+        //console.log(locationData);
         
         this.setState({
           temperature: Math.round(locationData[0].Temperature.Metric.Value),
@@ -357,7 +357,7 @@ export default class WhatTheWeather extends Component {
           
           
           
-          if (this.state.isDaytime = true) { //값을 반전시키면 낮 밤 바꿈
+          if (this.state.isDaytime === 'true') { //값을 반전시키면 낮 밤 바꿈
             this.setState({
               sunLabel: 'Sunset',
               sunLabelTime: this.state.sunLabelSetTime.substring(11, 16),
@@ -370,7 +370,7 @@ export default class WhatTheWeather extends Component {
               isDayTimeGradientsTate: isDayTimeGradient.dayTimeTruestyle.false
             })
           }
-          //console.log(this.state.isDaytime);
+          console.log(this.state.isDaytime);
           if(this.state.currentPositionPM2524 < 12) {
             this.setState({
               PM25currentAqi: (2.10 * this.state.currentPositionPM25) - (2.10 * 0) + 0
@@ -491,8 +491,8 @@ export default class WhatTheWeather extends Component {
             });
           }
 
-          console.log('PM 2.5 AQI : ' + this.state.PM25currentAqi + ' ' +this.state.PM25currentAqiLevel);
-          console.log('PM 10 AQI : ' + this.state.PM10currentAqi + ' ' +this.state.PM10currentAqiLevel);
+          //console.log('PM 2.5 AQI : ' + this.state.PM25currentAqi + ' ' +this.state.PM25currentAqiLevel);
+          //console.log('PM 10 AQI : ' + this.state.PM10currentAqi + ' ' +this.state.PM10currentAqiLevel);
         
           if (this.state.PM25currentAqi > this.state.PM10currentAqi) {
             this.setState({
@@ -500,22 +500,22 @@ export default class WhatTheWeather extends Component {
               polutionStandard: 'PM 2.5',
               AQILevelResult: this.state.PM25currentAqi
             })
-            console.log(this.state.polutionStandard + ' ' + this.state.PM25currentAqi + ' ' + this.state.AQIResult);
+            //console.log(this.state.polutionStandard + ' ' + this.state.PM25currentAqi + ' ' + this.state.AQIResult);
           } else {
             this.setState({
               AQIResult: this.state.PM10currentAqiLevel,
               polutionStandard: 'PM 10',
               AQILevelResult: this.state.PM10currentAqi
             })
-            console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
+            //console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
           }
 
-          console.log(this.state.AQIResult);
+          //console.log(this.state.AQIResult);
           if (this.state.AQIResult == 'Good') {
             this.setState({
               aqGradient: airQualityGradient.qualityLevel.good
             })
-            console.log('gradient Good');
+            //console.log('gradient Good');
           } else if (this.state.AQIResult == 'Moderate') {
             this.setState({
               aqGradient: airQualityGradient.qualityLevel.moderate
@@ -524,7 +524,7 @@ export default class WhatTheWeather extends Component {
             this.setState({
               aqGradient: airQualityGradient.qualityLevel.unhealtyfor
             })
-            console.log('gradient Unhealthy for Sensitive Group');
+            //console.log('gradient Unhealthy for Sensitive Group');
           } else if (this.state.AQIResult == 'Unhealthy') {
             this.setState({
               aqGradient: airQualityGradient.qualityLevel.unhealty
@@ -538,7 +538,7 @@ export default class WhatTheWeather extends Component {
               aqGradient: airQualityGradient.qualityLevel.hazardous
             })
           }
-          console.log(this.state.aqGradient);
+          //console.log(this.state.aqGradient);
 
 
 
