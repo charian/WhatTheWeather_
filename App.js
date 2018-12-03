@@ -20,6 +20,32 @@ import {token} from "./Keys"
 //   globalName : name
   
 // }
+const dayTime = {
+  isDaytimeTrue: {
+    title: 'Senset',
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+  },
+  isDaytimeFalse: {
+    title: 'Senrise',
+    iconImg: require('./assets/images/icon-sunny-2x.png'),
+  }
+}
+const airQualityGradient = {
+  qualityLevel: {
+    good: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 0},
+    moderate: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 0.1},
+    unhealtyfor: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 0.3},
+    unhealty: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 0.5},
+    veryunhealty: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 0.7},
+    hazardous: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 1, height: 900, opacity: 1}
+  }
+}
+const isDayTimeGradient = {
+  dayTimeTruestyle: {
+    true: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 0, height: 900, opacity: 0},
+    false: {flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 0, height: 900}
+  }
+}
 const weatherCases = {
   Lightrain: {
     colors: ["#80CBF9", "#EED578", "#FF4B1F"],
@@ -163,10 +189,13 @@ const weatherCases = {
     icon: "weather-hail"
   },
   Mist: {
-    colors: ["#D7D2CC", "#304352"],
-    title: "Mist!",
-    subtitle: "It's like you have no glasses on.",
-    icon: "weather-fog"
+    colors: ["#BEBEBE", "#7C8EB6", "#6F6F6F"],
+    title: "Partly cloudy",
+    subtitle: "I know, fucking boring",
+    icon: "weather-cloudy",
+    iconImg: require('./assets/images/icon-cloud-2x.png'),
+    width: 244,
+    height: 157,
   },
   Ashower: {
     colors: ["#D7D2CC", "#304352"],
@@ -213,6 +242,14 @@ export default class WhatTheWeather extends Component {
       weatherImageWidth: null,
       weatherImageHeight: null,
       thenYesterdayCompare: null,
+      sunLabel: null,
+      sunLabelRiseTime: null,
+      sunLabelSetTime: null,
+      sunLabelTime: null,
+      windSpeed: null,
+      isDayTimeGradientsTate: null,
+      timeStyle: null,
+      aqGradient: null
     };
   
 
@@ -252,29 +289,31 @@ export default class WhatTheWeather extends Component {
       .then(response => response.json())
       .then(locationData => {
         //console.log('weather data');
-        //console.log(locationData);
+        console.log(locationData);
+        
         this.setState({
           temperature: Math.round(locationData[0].Temperature.Metric.Value),
           name: locationData[0].WeatherText.replace(/\s/gi,""), //.replace(/\-/g,'')
           thenyesterday: locationData[0].Past24HourTemperatureDeparture.Metric.Value,
           humidity: locationData[0].RelativeHumidity,
-          isDaytime: locationData[0].IsDayTime,
+          isDaytime: JSON.stringify(locationData[0].IsDayTime),
           realFeel: Math.round(locationData[0].RealFeelTemperature.Metric.Value),
-
+          windSpeed: locationData[0].Wind.Speed.Metric.Value,
           weatherImage: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].iconImg,
           weatherImageWidth: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].width,
           weatherImageHeight: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].height,
-          isLoaded: true
         })
-
-        // return fetch(`https://api.waqi.info/feed/geo:${lat};${long}/?token=${token}`)
-        // .then(response => response.json())
-        // .then(AQI => {
-        //   console.log(AQI);
-        // })
-
-
-
+        console.log(this.state.isDaytime);
+        return fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/1day/` + this.state.locationKey + `?apikey=${API_KEY}&details=true`)
+      })
+      .then(response => response.json())
+      .then(forecastData => {
+        this.setState({
+          sunLabelRiseTime : forecastData.DailyForecasts[0].Sun.Rise,
+          sunLabelSetTime : forecastData.DailyForecasts[0].Sun.Set
+        })
+        //console.log('start forecast 1day');
+        //console.log(forecastData);
         //return fetch(`https://dapi.kakao.com/v2/local/geo/transcoord.json?x=-73.935242&y=40.730610&input_coord=WGS84&output_coord=TM`,{
         return fetch(`https://dapi.kakao.com/v2/local/geo/transcoord.json?x=${long}&y=${lat}&input_coord=WGS84&output_coord=TM`,{
           headers: new Headers({'Authorization': 'KakaoAK d114ff2a6ca1e7124eb497fbfcb660a4'}),
@@ -308,13 +347,30 @@ export default class WhatTheWeather extends Component {
             currentPositionPM2524:airpolution.list[0].pm25Value24,
             currentPositionPM10:airpolution.list[0].pm10Value,
             currentPositionPM1024:airpolution.list[0].pm10Value24,
-          })
+            isLoaded: true
+          });
 
-          console.log('pm2.5 : ' + this.state.currentPositionPM25);
-          console.log('pm2.5 24h : ' + this.state.currentPositionPM2524);
-          console.log('pm10 : ' +  this.state.currentPositionPM10);
-          console.log('pm10 24h : ' +  this.state.currentPositionPM1024);
-
+          // console.log('pm2.5 : ' + this.state.currentPositionPM25);
+          // console.log('pm2.5 24h : ' + this.state.currentPositionPM2524);
+          // console.log('pm10 : ' +  this.state.currentPositionPM10);
+          // console.log('pm10 24h : ' +  this.state.currentPositionPM1024);
+          
+          
+          
+          if (this.state.isDaytime = true) { //값을 반전시키면 낮 밤 바꿈
+            this.setState({
+              sunLabel: 'Sunset',
+              sunLabelTime: this.state.sunLabelSetTime.substring(11, 16),
+              isDayTimeGradientsTate: isDayTimeGradient.dayTimeTruestyle.true
+            })
+          } else {
+            this.setState({
+              sunLabel: 'Sunrise',
+              sunLabelTime: this.state.sunLabelRiseTime.substring(11, 16),
+              isDayTimeGradientsTate: isDayTimeGradient.dayTimeTruestyle.false
+            })
+          }
+          //console.log(this.state.isDaytime);
           if(this.state.currentPositionPM2524 < 12) {
             this.setState({
               PM25currentAqi: (2.10 * this.state.currentPositionPM25) - (2.10 * 0) + 0
@@ -454,19 +510,57 @@ export default class WhatTheWeather extends Component {
             console.log(this.state.polutionStandard + ' ' + this.state.PM10currentAqi + ' ' + this.state.AQIResult);
           }
 
+          console.log(this.state.AQIResult);
+          if (this.state.AQIResult == 'Good') {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.good
+            })
+            console.log('gradient Good');
+          } else if (this.state.AQIResult == 'Moderate') {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.moderate
+            })
+          } else if (this.state.AQIResult == 'Unhealthy for Sensitive Groups' ) {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.unhealtyfor
+            })
+            console.log('gradient Unhealthy for Sensitive Group');
+          } else if (this.state.AQIResult == 'Unhealthy') {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.unhealty
+            })
+          } else if (this.state.AQIResult == 'Very Unhealthy') {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.veryunhealty
+            })
+          } else if (this.state.AQIResult == 'Hazardous') {
+            this.setState({
+              aqGradient: airQualityGradient.qualityLevel.hazardous
+            })
+          }
+          console.log(this.state.aqGradient);
+
+
+
           if (this.state.thenyesterday > 0) {
             this.setState({
-              thenYesterdayCompare: 'higher then yesterday'
+              thenYesterdayCompare: 'higher than yesterday'
             })
           } else {
             this.setState({
-              thenYesterdayCompare: 'lower then yesterday'
+              thenYesterdayCompare: 'lower than yesterday'
             })
           }
-          console.log(this.state.isDaytime);
-          //console.log(this.state.name);
-          //console.log(this.state.cityname);
+          //console.log(this.state.isDaytime);
 
+          
+          
+          
+          //console.log(this.state.isDayTimeGradientsTate);
+          console.log(this.state.name);
+          //console.log(this.state.cityname);
+//sunLabelRiseTime: null,
+//sunLabelSetTime: null
           // this.setState ({
           //   //gradientColors: this.state.name && weatherCases[this.state.name].colors,
           //   weatherImage: this.state.name && weatherCases[this.state.name].iconImg,
@@ -513,7 +607,9 @@ export default class WhatTheWeather extends Component {
             <WeatherContext.Provider value={this.state}>
               <Router style={styles.routerContainer} />
             </WeatherContext.Provider>
+            
           </LinearGradient>
+          
         ) : (
           <View style={styles.loading}>
             <Text style={styles.loadingText}>Getting the fucking weather</Text>
@@ -544,7 +640,8 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     paddingLeft: 20,
     paddingRight: 20,
-    zIndex: 1000
+    zIndex: 1000,
+    backgroundColor: 'blue'
   },
   loadingText: {
     fontSize: 38,

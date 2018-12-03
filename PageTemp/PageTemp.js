@@ -8,20 +8,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Modal from "react-native-modal";
 
-
 export class PageTemp extends Component {
 
   state = { 
     isModalVisible1: false,
+    timeStyle: null,
   }
 
   _toggleModal1 = () => this.setState({ isModalVisible1: !this.state.isModalVisible1 });
 
+
   render() {
     
-    
+    // console.log('day?' + this.props.value.isDaytime);
+    // console.log(this.props.value.timeStyle);
     //console.log(this.props.value.name);
-
+    //console.log(this.props.value.isDayTimeGradientsTate);
     // const images = {
     //   motlyCloudy: require('./../assets/images/icon-cloud-2x.png'),
     // };
@@ -40,6 +42,8 @@ export class PageTemp extends Component {
     //console.log(weatherName);
     
     //console.log(this.state.isModalVisible1);
+    
+    
 
 
   //   <LinearGradient
@@ -51,8 +55,8 @@ export class PageTemp extends Component {
   // >
 
       
-
-
+//console.log(this.props.value.sunLabel);
+//console.log(this.props.value.isDayTimeGradient);
   //console.log('from temp page : ' + this.props.value.weatherImage);
 
     return (
@@ -110,26 +114,37 @@ export class PageTemp extends Component {
               <View style={styles.lowerEtcWidget } style={{flex: 1} }>
                 <Image source={require('./../assets/images/icon-aq-2x.png')} style={{width: 29,height: 27,} } />
                 <Text style={styles.lowerEtcTitle}>Air Quility</Text>
-                <Text style={styles.lowerEtcValue} numberOfLines={1}>{this.props.value.AQIResult}</Text>
+                <Text style={styles.lowerEtcValue01} numberOfLines={1} >{this.props.value.AQIResult}</Text>
               </View>
-              <View style={styles.lowerEtcWidget} style={{flex: 1} }>
+              <View style={styles.lowerEtcWidget} style={{flex: 0.8, marginTop: 2} }>
                 <Image source={require('./../assets/images/icon-senset-2x.png')} style={{width: 26,height: 24} } />
-                <Text style={styles.lowerEtcTitle}>Sunset</Text>
-                <Text style={styles.lowerEtcValue}>17:00 PM</Text>
+                <Text style={styles.lowerEtcTitle}>{this.props.value.sunLabel}</Text>
+                <Text style={styles.lowerEtcValue}>{this.props.value.sunLabelTime}</Text>
               </View>
-              <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+              <View style={styles.lowerEtcWidget} style={{flex: 0.8} }>
                 <Image source={require('./../assets/images/icon-hu-2x.png')} style={{width: 21,height: 27} } />
                 <Text style={styles.lowerEtcTitle}>Humidity</Text>
-                <Text style={styles.lowerEtcValue}>60%</Text>
+                <Text style={styles.lowerEtcValue}>{this.props.value.humidity}%</Text>
               </View>
-              <View style={styles.lowerEtcWidget} style={{flex: 0.9} }>
+              <View style={styles.lowerEtcWidget} style={{flex: 1, marginTop: 3} }>
                 <Image source={require('./../assets/images/icon-wind-2x.png')} style={{width: 22,height: 23} } />
                 <Text style={styles.lowerEtcTitle}>Wind</Text>
-                <Text style={styles.lowerEtcValue}>2Km/s</Text>
+                <Text style={styles.lowerEtcValue}>{this.props.value.windSpeed}Km/s</Text>
               </View>
             </View>
           </View>
-
+          <LinearGradient 
+            colors={['#FFDC00', 'transparent']}
+            start={[1,0]}
+            end={[0,0]}
+            style={[this.props.value.aqGradient]}
+            />
+          <LinearGradient 
+            colors={['#110035', 'transparent']}
+            start={[0,0]}
+            end={[0,1]}
+            style={[this.props.value.isDayTimeGradientsTate]}
+            />
       </View>
 
 
@@ -154,17 +169,28 @@ const styles = StyleSheet.create({
     right: 0,
     flex: 1
   },
+  dayGradient: {
+    flex: 1, position: 'absolute', left: 0, right: 0, top: 0, zIndex: 0, height: 900, 
+  },
+  dayTimeGradient: {
+    opacity: 0
+  },
+  nightTimeGradient: {
+    opacity: 1
+  },
   linear: {
     flex: 1,   
   },
   upper: {
     flex: 1,
     justifyContent: "flex-end",
-    alignSelf: 'center'
+    alignSelf: 'center',
+    zIndex: 5
   },
   lower: {
     flex: 1,
     paddingLeft: 25,
+    zIndex: 5
   },
   lowerDgree: {
     flex: 1,  justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'flex-end'
@@ -203,6 +229,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontFamily: "Arial Rounded MT Bold",
     marginTop: 4,
+  },
+  lowerEtcValue01: {
+    fontSize: 15,
+    color: '#fff',
+    fontFamily: "Arial Rounded MT Bold",
+    marginTop: 4,
+    paddingRight: 14
   },
   currentTemp: {
     fontSize: 80,

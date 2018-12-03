@@ -40,14 +40,16 @@ const getStackNavOption = (current) => ({
     backgroundColor: 'transparent',
   },
   
+  
   headerLeft: generateDrawerHamburger(current)
 });
 
 const PageTempStack = StackNavigator({
   PageTemp: {
     screen: PageTemp,
-    drawerType: 'back',
-    navigationOptions: getStackNavOption,
+    headerMode: 'float',
+    navigationOptions:  getStackNavOption
+    
   }
 });
 const Page2Stack = StackNavigator({
@@ -63,9 +65,17 @@ const PageSettingStack = StackNavigator({
   }
 });
 
+// drawer stack
+const DrawerStack = DrawerNavigator({
+  PageTemp: { screen: PageTemp },
+  Page2: { screen: Page2 },
+  PageSetting: { screen: PageSetting },
+})
+
 export default DrawerNavigator({
   PageTemp: {
     screen: PageTempStack,
+    
   },
   Page2: {
     screen: Page2Stack
@@ -78,7 +88,13 @@ export default DrawerNavigator({
   drawerType: 'slide',
   drawerPosition: 'left',
   drawerWidth: 200,
-  flipSide: 'left', 
+  flipSide: 'left',
+  contentOptions: {
+    activeTintColor: '#ffffff',
+    activeBackgroundColor: 'white',
+    inactiveTintColor: 'white'
+  },
+  
 });
 
 const styles = StyleSheet.create({
