@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Dimensions } from "react-native";
 import PropTypes from "prop-types";
 import { LinearGradient } from "expo";
 import { WeatherContext } from "../Context";
@@ -8,45 +8,67 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import _ from 'lodash';
 import Modal from "react-native-modal";
 
+let deviceWidth = Dimensions.get('window').width
+let deviceHeight = Dimensions.get('window').height
 
 class PageSetting extends React.Component {
   constructor()
   {
     super();
-  
+
     this.state={
-  
-      TextValue : ''
-  
+        TextValue : '',
+        endDebounce : null,
+        keywordValue: null
     }
   }
 
-  GetValueFunction = (ValueHolder) =>{
-      
-    var Value = ValueHolder.length.toString() ;
+  // componentDidUpdate () {
 
-    this.setState({TextValue : Value}) ;
-  
-   }
+  //   this.setState ({
+  //     endDebounce: 'changed'
+  //   })
+  // }
 
-  onChangeText(text) {
+  onChangeText = (text) => {
     console.log("debouncing");
+    this.setState ({
+      endDebounce: 'changed! Fetch Start!'
+    })
+    console.log(this.state.endDebounce + 'Keywords : ' + this.state.keywordValue);
   }
+  GetValueFunction = (ValueHolder) =>{
+    var Value = ValueHolder.length.toString() ;
+    var keyword = ValueHolder;
+    this.setState({TextValue : Value});
+    this.setState({keywordValue : keyword});
+    // if(this.state.TextValue > 3) {
+    //   console.log('Fetch Start!');
+    // }
+
+   }
+  _onChangeTextDelayed = (ValueHolder) => {
+    this._onChangeTextDelayed = _.debounce(this.onChangeText, 2000);
+  }
+ 
+
 
   render() {
     return (
-      <View style={{flex: 1, paddingTop: 150}}>
-      <TextInput 
-        style={{width: 300, height: 30, borderColor: 'gray', borderWidth: 1}} 
-        placeholder={'location keywords'}
-        onChangeText={
-          _.debounce(this.onChangeText, 2000)
-        }
-        onChangeText={ 
-          ValueHolder => this.GetValueFunction(ValueHolder) 
-        }
-      />
-      <Text style={styles.TextStyle}> { this.state.TextValue } </Text>
+      <View style={styles.container}>
+        <View style={styles.backgroundColorinnerContainer}>
+          <TextInput 
+          style={styles.searchInput} 
+          placeholder={'location keywords'}
+          onChangeText={
+            ValueHolder => {
+              this.GetValueFunction(ValueHolder),
+              this._onChangeTextDelayed(ValueHolder)
+            }
+          }
+          />
+          <Text style={styles.TextStyle}> { this.state.TextValue } </Text>
+        </View>
       </View>
     )
   }
@@ -58,42 +80,32 @@ export default () => (
 );
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F5FCFF',
     flex: 1,
-    paddingTop: 25
+    padding: 20,
+    paddingTop: 110,
+    paddingBottom: 25
   },
-  autocompleteContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 150
+  backgroundColorinnerContainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+    elevation:4,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "black",
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    borderRadius: 26,
+    padding: 23
   },
-  itemText: {
-    fontSize: 15,
-    margin: 2
-  },
-  descriptionContainer: {
-    // `backgroundColor` needs to be set otherwise the
-    // autocomplete input will disappear on text input.
-    backgroundColor: '#F5FCFF',
-    marginTop: 8
-  },
-  infoText: {
-    textAlign: 'center'
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: '500',
-    marginBottom: 10,
-    marginTop: 10,
-    textAlign: 'center'
-  },
-  directorText: {
-    color: 'grey',
-    fontSize: 12,
-    marginBottom: 10,
-    textAlign: 'center'
-  },
-  openingText: {
-    textAlign: 'center'
+  searchInput: {
+    width: '100%',
+    height: 60,
+    borderColor: '#D9D9D9',
+    borderWidth: 3,
+    borderRadius: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 19,
+    color: '#373737',
+    fontFamily: "Arial Rounded MT Bold",
   }
 });
