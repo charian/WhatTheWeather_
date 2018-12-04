@@ -10,9 +10,24 @@ import Modal from "react-native-modal";
 
 
 class PageSetting extends React.Component {
-  // constructor() {
-  //   this.onChangeTextDelayed = _.debounce(this.onChangeText, 2000);
-  // }
+  constructor()
+  {
+    super();
+  
+    this.state={
+  
+      TextValue : ''
+  
+    }
+  }
+
+  GetValueFunction = (ValueHolder) =>{
+      
+    var Value = ValueHolder.length.toString() ;
+
+    this.setState({TextValue : Value}) ;
+  
+   }
 
   onChangeText(text) {
     console.log("debouncing");
@@ -21,7 +36,17 @@ class PageSetting extends React.Component {
   render() {
     return (
       <View style={{flex: 1, paddingTop: 150}}>
-      <TextInput style={{width: 300, height: 30, borderColor: 'gray', borderWidth: 1}} onChangeText={_.debounce(this.onChangeText, 2000)} />
+      <TextInput 
+        style={{width: 300, height: 30, borderColor: 'gray', borderWidth: 1}} 
+        placeholder={'location keywords'}
+        onChangeText={
+          _.debounce(this.onChangeText, 2000)
+        }
+        onChangeText={ 
+          ValueHolder => this.GetValueFunction(ValueHolder) 
+        }
+      />
+      <Text style={styles.TextStyle}> { this.state.TextValue } </Text>
       </View>
     )
   }
