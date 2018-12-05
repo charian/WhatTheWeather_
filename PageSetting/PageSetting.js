@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, TextInput, Dimensions, ActivityIndicator,FlatList} from "react-native";
 import PropTypes from "prop-types";
 import { LinearGradient } from "expo";
 import { WeatherContext } from "../Context";
@@ -39,7 +39,7 @@ class PageSetting extends React.Component {
     // console.log('keywords lengh : ' + this.state.TextValue);
     // console.log('keywords value : ' + this.state.keywordValue);
     // console.log({API_KEY});
-    if (this.state.TextValue > 3) {
+    if (this.state.TextValue > 2) {
       this.setState ({
         endDebounce: 'changed! Fetch Start!'
       })
@@ -48,12 +48,14 @@ class PageSetting extends React.Component {
       .then(autocompleteResult => {
         //console.log(autocompleteResult);
         this.setState({
-          locationList: autocompleteResult.LocalizedName,
+          locationList: autocompleteResult,
           isLoading: false,  
-          
         })
-        console.log(this.state.locationList);
+        console.log(this.state.locationList[0].LocalizedName);
       })
+      .catch((error) => {
+        console.error(error);
+      });
     }
     console.log(this.state.endDebounce + 'Keywords : ' + this.state.keywordValue);
   }
@@ -79,13 +81,7 @@ class PageSetting extends React.Component {
 
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
+    
     return (
       <View style={styles.container}>
         <View style={styles.backgroundColorinnerContainer}>
@@ -99,7 +95,21 @@ class PageSetting extends React.Component {
             }
           }
           />
-          <Text style={styles.TextStyle}> { this.state.TextValue } </Text>
+          <View style={styles.containerremarkOfSearch}>
+            <Text style={styles.remarkOfSearch}>
+              Please enter at least 3 characters.
+            </Text>
+          </View>
+          <FlatList
+            data={this.state.locationList}
+            renderItem={({item}) =>
+              <View style={styles.locationList}>
+                <Text style={styles.locationListText}>{item.LocalizedName}, {item.Country.LocalizedName}</Text>
+              </View>
+            }
+            keyExtractor={(item, index) => index}
+          />
+          {/* <Text style={styles.TextStyle}> { this.state.TextValue } </Text> */}
         </View>
       </View>
     )
@@ -116,6 +126,25 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 110,
     paddingBottom: 25
+  },
+  containerremarkOfSearch: {
+    paddingTop: 10,
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  remarkOfSearch: {
+    color: '#373737',
+    fontFamily: "NanumSquareRoundEB",
+    fontSize: 13,
+    
+  },
+  locationList: {
+    padding: 15
+  },
+  locationListText: {
+    fontSize: 16,
+    color: '#373737',
+    fontFamily: "NanumSquareRoundEB",
   },
   backgroundColorinnerContainer: {
     backgroundColor: '#fff',
