@@ -2,11 +2,12 @@
 import React, {Component} from 'react';
 import Router from './routes';
 import { View, Text, TouchableOpacity, Image, StyleSheet, AppRegistry, StatusBar, SafeAreaView } from 'react-native';
-import { LinearGradient } from "expo";
+import { LinearGradient, Asset, Font } from "expo";
 import Modal from "react-native-modal";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import { ifIphoneX } from 'react-native-iphone-x-helper'
+import GlobalFont from 'react-native-global-font'
 
 
 import SelectLocation from "./location";
@@ -249,24 +250,41 @@ export default class WhatTheWeather extends Component {
       windSpeed: null,
       isDayTimeGradientsTate: null,
       timeStyle: null,
-      aqGradient: null
+						aqGradient: null,
+						fontLoaded: false,
     };
   
 
 
-  componentDidMount() {
+				async componentDidMount() {
+
+					console.log('font load : ' + this.state.fontLoaded);
+    await Font.loadAsync({
+      'NanumSquareRoundB': require('./assets/fonts/NanumSquareRoundB.ttf'),
+      "NanumSquareRoundEB": require("./assets/fonts/NanumSquareRoundEB.ttf"),
+      'NanumSquareRoundL': require('./assets/fonts/NanumSquareRoundL.ttf'),
+      'NanumSquareRoundR': require('./assets/fonts/NanumSquareRoundR.ttf'),
+    }).then(() => {
+      this.setState({fontLoaded: true})
+						console.log('font load : ' + this.state.fontLoaded);
+				});
+				console.log('start get geo');
     navigator.geolocation.getCurrentPosition(
+					
       position => {
         this._getWeather(position.coords.latitude, position.coords.longitude);
-        //console.log(position);
+        console.log(position);
       },
       error => {
         this.setState({
           error: error
         });
-      }
-    );
-      
+						},
+						{enableHighAccuracy: true, timeout: 10000, maximumAge: 3000} //for fucking android
+				);
+			// 	let fontName = 'YourFontName'
+   // GlobalFont.applyGlobal(fontName)
+    
   }
 
   _getWeather = (lat, long) => {
@@ -274,8 +292,8 @@ export default class WhatTheWeather extends Component {
     fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${API_KEY}&q=${lat},${long}`)
       .then(response => response.json())
       .then(location => {
-        //console.log('location data');
-        //console.log(location);
+        console.log('location data');
+        console.log(location);
         this.setState({
           locationKey: location.Key,
           countrytext: location.Country.LocalizedName,
@@ -303,7 +321,7 @@ export default class WhatTheWeather extends Component {
           weatherImageWidth: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].width,
           weatherImageHeight: locationData[0].WeatherText.replace(/\s/gi,"") && weatherCases[locationData[0].WeatherText.replace(/\s/gi,"")].height,
         })
-        console.log(this.state.isDaytime);
+        //console.log(this.state.isDaytime);
         return fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/1day/` + this.state.locationKey + `?apikey=${API_KEY}&details=true`)
       })
       .then(response => response.json())
@@ -370,7 +388,7 @@ export default class WhatTheWeather extends Component {
               isDayTimeGradientsTate: isDayTimeGradient.dayTimeTruestyle.false
             })
           }
-          console.log(this.state.isDaytime);
+          //console.log(this.state.isDaytime);
           if(this.state.currentPositionPM2524 < 12) {
             this.setState({
               PM25currentAqi: (2.10 * this.state.currentPositionPM25) - (2.10 * 0) + 0

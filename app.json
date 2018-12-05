@@ -17,6 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+
     "assetBundlePatterns": [
       "**/*"
     ],

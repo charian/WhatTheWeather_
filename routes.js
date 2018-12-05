@@ -30,11 +30,13 @@ const getStackNavOption = (current) => ({
   headerStyle: {
     position: 'absolute', 
     backgroundColor: 'transparent', 
-    zIndex: 1, 
-    top: -100, 
+    // zIndex: 2000, 
+    top: 0, 
     left: 0, 
     right: 0,
-    borderBottomColor: 'transparent'
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0,
+    elevation: 0
   },
   containerStyle: {
     backgroundColor: 'transparent',
@@ -47,7 +49,7 @@ const getStackNavOption = (current) => ({
 const PageTempStack = StackNavigator({
   PageTemp: {
     screen: PageTemp,
-    headerMode: 'float',
+    //headerMode: 'float',
     navigationOptions:  getStackNavOption
     
   }
@@ -99,9 +101,12 @@ export default DrawerNavigator({
 
 const styles = StyleSheet.create({
   collLeftbtn: {
-    position: 'absolute',
-    left: 26,
-    top: 120
+    // position: 'absolute',
+    // left: 26,
+    // top: 0,
+    // zIndex: 105,
+    marginLeft: 30,
+    marginTop: 15,
   },
   callLeftmenu: {
       width: 24, height: 20

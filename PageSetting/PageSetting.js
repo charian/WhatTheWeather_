@@ -32,13 +32,16 @@ class PageSetting extends React.Component {
 
   onChangeText = (text) => {
     console.log("debouncing");
-    this.setState ({
-      endDebounce: 'changed! Fetch Start!'
-    })
+    if (this.state.TextValue > 3) {
+      this.setState ({
+        endDebounce: 'changed! Fetch Start!'
+      })
+    }
+    
     console.log(this.state.endDebounce + 'Keywords : ' + this.state.keywordValue);
   }
   GetValueFunction = (ValueHolder) =>{
-    var Value = ValueHolder.length.toString() ;
+    var Value = ValueHolder.length.toString(); // 입력한 글자를 받아와 length를 구함.
     var keyword = ValueHolder;
     this.setState({TextValue : Value});
     this.setState({keywordValue : keyword});
@@ -106,6 +109,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     fontSize: 19,
     color: '#373737',
-    fontFamily: "Arial Rounded MT Bold",
+    fontFamily: "NanumSquareRoundEB",
   }
 });

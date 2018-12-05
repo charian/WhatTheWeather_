@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, SafeAreaView, Platform } from "react-native";
 import PropTypes from "prop-types";
 import { LinearGradient } from "expo";
 import { WeatherContext } from "./Context";
@@ -71,6 +71,11 @@ const styles = StyleSheet.create({
     }, {
         paddingTop: 34 // default style
     }),
+    ...Platform.select({
+      android: {
+        paddingTop: 45
+      },
+    }),
     left: 50,
     flex: 1,
     zIndex: 100,
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
   indexLocationText: {
     fontSize: 27,
     color: '#fff',
-    fontFamily: "Arial Rounded MT Bold",
+    fontFamily: "NanumSquareRoundEB",
   },
   modalContainer: {
     backgroundColor: '#fff',

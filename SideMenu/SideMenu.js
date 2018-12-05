@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     padding: 10,
     //color: '#979797',
     fontSize: 19,
-    fontFamily: "Arial Rounded MT Bold",
+    fontFamily: "NanumSquareRoundEB",
   },
   navSectionStyle: {
     
